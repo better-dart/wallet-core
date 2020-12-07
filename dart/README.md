@@ -1,10 +1,10 @@
-A simple command-line application.
-
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+# Dart FFI: binding to dart.
 
 
-# quickstart:
+- use `dart:ffi` to binding `wallet-core` for dart.
+
+
+## quickstart:
 
 
 - install:
@@ -26,3 +26,14 @@ make ffi-setup
 ```
 make ffi-gen
 ```
+
+## dart binding file:
+
+- result: [dart/wallet_core_bindings.dart](./dart/wallet_core_bindings.dart)
+
+
+## pubspec.yaml:
+
+- about ffi gen part: [dart/pubspec.yaml](dart/pubspec.yaml)
+
+
