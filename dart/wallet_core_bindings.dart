@@ -11,6 +11,121 @@ class WalletCore {
   /// The symbols are looked up in [dynamicLibrary].
   WalletCore(ffi.DynamicLibrary dynamicLibrary) : _dylib = dynamicLibrary;
 
+  /// /// Creates a string from a null-terminated UTF8 byte array. It must be deleted at the end.
+  ffi.Pointer<ffi.Void> TWStringCreateWithUTF8Bytes(
+    ffi.Pointer<ffi.Int8> bytes,
+  ) {
+    _TWStringCreateWithUTF8Bytes ??= _dylib.lookupFunction<
+        _c_TWStringCreateWithUTF8Bytes,
+        _dart_TWStringCreateWithUTF8Bytes>('TWStringCreateWithUTF8Bytes');
+    return _TWStringCreateWithUTF8Bytes(
+      bytes,
+    );
+  }
+
+  _dart_TWStringCreateWithUTF8Bytes _TWStringCreateWithUTF8Bytes;
+
+  /// /// Creates a string from a raw byte array and size.
+  ffi.Pointer<ffi.Void> TWStringCreateWithRawBytes(
+    ffi.Pointer<ffi.Uint8> bytes,
+    int size,
+  ) {
+    _TWStringCreateWithRawBytes ??= _dylib.lookupFunction<
+        _c_TWStringCreateWithRawBytes,
+        _dart_TWStringCreateWithRawBytes>('TWStringCreateWithRawBytes');
+    return _TWStringCreateWithRawBytes(
+      bytes,
+      size,
+    );
+  }
+
+  _dart_TWStringCreateWithRawBytes _TWStringCreateWithRawBytes;
+
+  /// /// Creates a hexadecimal string from a block of data. It must be deleted at the end.
+  ffi.Pointer<ffi.Void> TWStringCreateWithHexData(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWStringCreateWithHexData ??= _dylib.lookupFunction<
+        _c_TWStringCreateWithHexData,
+        _dart_TWStringCreateWithHexData>('TWStringCreateWithHexData');
+    return _TWStringCreateWithHexData(
+      data,
+    );
+  }
+
+  _dart_TWStringCreateWithHexData _TWStringCreateWithHexData;
+
+  /// /// Returns the string size in bytes.
+  int TWStringSize(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWStringSize ??= _dylib
+        .lookupFunction<_c_TWStringSize, _dart_TWStringSize>('TWStringSize');
+    return _TWStringSize(
+      string,
+    );
+  }
+
+  _dart_TWStringSize _TWStringSize;
+
+  /// /// Returns the byte at the provided index.
+  int TWStringGet(
+    ffi.Pointer<ffi.Void> string,
+    int index,
+  ) {
+    _TWStringGet ??=
+        _dylib.lookupFunction<_c_TWStringGet, _dart_TWStringGet>('TWStringGet');
+    return _TWStringGet(
+      string,
+      index,
+    );
+  }
+
+  _dart_TWStringGet _TWStringGet;
+
+  /// /// Returns the raw pointer to the string's UTF8 bytes.
+  ffi.Pointer<ffi.Int8> TWStringUTF8Bytes(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWStringUTF8Bytes ??=
+        _dylib.lookupFunction<_c_TWStringUTF8Bytes, _dart_TWStringUTF8Bytes>(
+            'TWStringUTF8Bytes');
+    return _TWStringUTF8Bytes(
+      string,
+    );
+  }
+
+  _dart_TWStringUTF8Bytes _TWStringUTF8Bytes;
+
+  /// /// Deletes a string created with a `TWStringCreate*` method.  After delete it must not be used (can segfault)!
+  void TWStringDelete(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWStringDelete ??=
+        _dylib.lookupFunction<_c_TWStringDelete, _dart_TWStringDelete>(
+            'TWStringDelete');
+    return _TWStringDelete(
+      string,
+    );
+  }
+
+  _dart_TWStringDelete _TWStringDelete;
+
+  /// /// Determines whether two string blocks are equal.
+  int TWStringEqual(
+    ffi.Pointer<ffi.Void> lhs,
+    ffi.Pointer<ffi.Void> rhs,
+  ) {
+    _TWStringEqual ??= _dylib
+        .lookupFunction<_c_TWStringEqual, _dart_TWStringEqual>('TWStringEqual');
+    return _TWStringEqual(
+      lhs,
+      rhs,
+    );
+  }
+
+  _dart_TWStringEqual _TWStringEqual;
+
   int TWHDVersionIsPublic(
     int version,
   ) {
@@ -315,121 +430,6 @@ class WalletCore {
   }
 
   _dart_TWDataEqual _TWDataEqual;
-
-  /// /// Creates a string from a null-terminated UTF8 byte array. It must be deleted at the end.
-  ffi.Pointer<ffi.Void> TWStringCreateWithUTF8Bytes(
-    ffi.Pointer<ffi.Int8> bytes,
-  ) {
-    _TWStringCreateWithUTF8Bytes ??= _dylib.lookupFunction<
-        _c_TWStringCreateWithUTF8Bytes,
-        _dart_TWStringCreateWithUTF8Bytes>('TWStringCreateWithUTF8Bytes');
-    return _TWStringCreateWithUTF8Bytes(
-      bytes,
-    );
-  }
-
-  _dart_TWStringCreateWithUTF8Bytes _TWStringCreateWithUTF8Bytes;
-
-  /// /// Creates a string from a raw byte array and size.
-  ffi.Pointer<ffi.Void> TWStringCreateWithRawBytes(
-    ffi.Pointer<ffi.Uint8> bytes,
-    int size,
-  ) {
-    _TWStringCreateWithRawBytes ??= _dylib.lookupFunction<
-        _c_TWStringCreateWithRawBytes,
-        _dart_TWStringCreateWithRawBytes>('TWStringCreateWithRawBytes');
-    return _TWStringCreateWithRawBytes(
-      bytes,
-      size,
-    );
-  }
-
-  _dart_TWStringCreateWithRawBytes _TWStringCreateWithRawBytes;
-
-  /// /// Creates a hexadecimal string from a block of data. It must be deleted at the end.
-  ffi.Pointer<ffi.Void> TWStringCreateWithHexData(
-    ffi.Pointer<ffi.Void> data,
-  ) {
-    _TWStringCreateWithHexData ??= _dylib.lookupFunction<
-        _c_TWStringCreateWithHexData,
-        _dart_TWStringCreateWithHexData>('TWStringCreateWithHexData');
-    return _TWStringCreateWithHexData(
-      data,
-    );
-  }
-
-  _dart_TWStringCreateWithHexData _TWStringCreateWithHexData;
-
-  /// /// Returns the string size in bytes.
-  int TWStringSize(
-    ffi.Pointer<ffi.Void> string,
-  ) {
-    _TWStringSize ??= _dylib
-        .lookupFunction<_c_TWStringSize, _dart_TWStringSize>('TWStringSize');
-    return _TWStringSize(
-      string,
-    );
-  }
-
-  _dart_TWStringSize _TWStringSize;
-
-  /// /// Returns the byte at the provided index.
-  int TWStringGet(
-    ffi.Pointer<ffi.Void> string,
-    int index,
-  ) {
-    _TWStringGet ??=
-        _dylib.lookupFunction<_c_TWStringGet, _dart_TWStringGet>('TWStringGet');
-    return _TWStringGet(
-      string,
-      index,
-    );
-  }
-
-  _dart_TWStringGet _TWStringGet;
-
-  /// /// Returns the raw pointer to the string's UTF8 bytes.
-  ffi.Pointer<ffi.Int8> TWStringUTF8Bytes(
-    ffi.Pointer<ffi.Void> string,
-  ) {
-    _TWStringUTF8Bytes ??=
-        _dylib.lookupFunction<_c_TWStringUTF8Bytes, _dart_TWStringUTF8Bytes>(
-            'TWStringUTF8Bytes');
-    return _TWStringUTF8Bytes(
-      string,
-    );
-  }
-
-  _dart_TWStringUTF8Bytes _TWStringUTF8Bytes;
-
-  /// /// Deletes a string created with a `TWStringCreate*` method.  After delete it must not be used (can segfault)!
-  void TWStringDelete(
-    ffi.Pointer<ffi.Void> string,
-  ) {
-    _TWStringDelete ??=
-        _dylib.lookupFunction<_c_TWStringDelete, _dart_TWStringDelete>(
-            'TWStringDelete');
-    return _TWStringDelete(
-      string,
-    );
-  }
-
-  _dart_TWStringDelete _TWStringDelete;
-
-  /// /// Determines whether two string blocks are equal.
-  int TWStringEqual(
-    ffi.Pointer<ffi.Void> lhs,
-    ffi.Pointer<ffi.Void> rhs,
-  ) {
-    _TWStringEqual ??= _dylib
-        .lookupFunction<_c_TWStringEqual, _dart_TWStringEqual>('TWStringEqual');
-    return _TWStringEqual(
-      lhs,
-      rhs,
-    );
-  }
-
-  _dart_TWStringEqual _TWStringEqual;
 
   ffi.Pointer<TWPublicKey> TWPublicKeyCreateWithData(
     ffi.Pointer<ffi.Void> data,
@@ -1017,6 +1017,2524 @@ class WalletCore {
 
   _dart_TWCoinTypeSlip44Id _TWCoinTypeSlip44Id;
 
+  ffi.Pointer<TWAccount> TWAccountCreate(
+    ffi.Pointer<ffi.Void> address,
+    int coin,
+    ffi.Pointer<ffi.Void> derivationPath,
+    ffi.Pointer<ffi.Void> extendedPublicKey,
+  ) {
+    _TWAccountCreate ??=
+        _dylib.lookupFunction<_c_TWAccountCreate, _dart_TWAccountCreate>(
+            'TWAccountCreate');
+    return _TWAccountCreate(
+      address,
+      coin,
+      derivationPath,
+      extendedPublicKey,
+    );
+  }
+
+  _dart_TWAccountCreate _TWAccountCreate;
+
+  void TWAccountDelete(
+    ffi.Pointer<TWAccount> account,
+  ) {
+    _TWAccountDelete ??=
+        _dylib.lookupFunction<_c_TWAccountDelete, _dart_TWAccountDelete>(
+            'TWAccountDelete');
+    return _TWAccountDelete(
+      account,
+    );
+  }
+
+  _dart_TWAccountDelete _TWAccountDelete;
+
+  ffi.Pointer<ffi.Void> TWAccountAddress(
+    ffi.Pointer<TWAccount> account,
+  ) {
+    _TWAccountAddress ??=
+        _dylib.lookupFunction<_c_TWAccountAddress, _dart_TWAccountAddress>(
+            'TWAccountAddress');
+    return _TWAccountAddress(
+      account,
+    );
+  }
+
+  _dart_TWAccountAddress _TWAccountAddress;
+
+  ffi.Pointer<ffi.Void> TWAccountDerivationPath(
+    ffi.Pointer<TWAccount> account,
+  ) {
+    _TWAccountDerivationPath ??= _dylib.lookupFunction<
+        _c_TWAccountDerivationPath,
+        _dart_TWAccountDerivationPath>('TWAccountDerivationPath');
+    return _TWAccountDerivationPath(
+      account,
+    );
+  }
+
+  _dart_TWAccountDerivationPath _TWAccountDerivationPath;
+
+  ffi.Pointer<ffi.Void> TWAccountExtendedPublicKey(
+    ffi.Pointer<TWAccount> account,
+  ) {
+    _TWAccountExtendedPublicKey ??= _dylib.lookupFunction<
+        _c_TWAccountExtendedPublicKey,
+        _dart_TWAccountExtendedPublicKey>('TWAccountExtendedPublicKey');
+    return _TWAccountExtendedPublicKey(
+      account,
+    );
+  }
+
+  _dart_TWAccountExtendedPublicKey _TWAccountExtendedPublicKey;
+
+  int TWAccountCoin(
+    ffi.Pointer<TWAccount> account,
+  ) {
+    _TWAccountCoin ??= _dylib
+        .lookupFunction<_c_TWAccountCoin, _dart_TWAccountCoin>('TWAccountCoin');
+    return _TWAccountCoin(
+      account,
+    );
+  }
+
+  _dart_TWAccountCoin _TWAccountCoin;
+
+  /// /// Encrypts a block of data using AES in Cipher Block Chaining (CBC) mode.
+  /// ///
+  /// /// \param key encryption key, must be 16, 24, or 32 bytes long.
+  /// /// \param data data to encrypt.
+  /// /// \param iv initialization vector.
+  ffi.Pointer<ffi.Void> TWAESEncryptCBC(
+    ffi.Pointer<ffi.Void> key,
+    ffi.Pointer<ffi.Void> data,
+    ffi.Pointer<ffi.Void> iv,
+    int mode,
+  ) {
+    _TWAESEncryptCBC ??=
+        _dylib.lookupFunction<_c_TWAESEncryptCBC, _dart_TWAESEncryptCBC>(
+            'TWAESEncryptCBC');
+    return _TWAESEncryptCBC(
+      key,
+      data,
+      iv,
+      mode,
+    );
+  }
+
+  _dart_TWAESEncryptCBC _TWAESEncryptCBC;
+
+  /// /// Decrypts a block of data using AES in Cipher Block Chaining (CBC) mode.
+  /// ///
+  /// /// \param key decryption key, must be 16, 24, or 32 bytes long.
+  /// /// \param data data to decrypt.
+  /// /// \param iv initialization vector.
+  ffi.Pointer<ffi.Void> TWAESDecryptCBC(
+    ffi.Pointer<ffi.Void> key,
+    ffi.Pointer<ffi.Void> data,
+    ffi.Pointer<ffi.Void> iv,
+    int mode,
+  ) {
+    _TWAESDecryptCBC ??=
+        _dylib.lookupFunction<_c_TWAESDecryptCBC, _dart_TWAESDecryptCBC>(
+            'TWAESDecryptCBC');
+    return _TWAESDecryptCBC(
+      key,
+      data,
+      iv,
+      mode,
+    );
+  }
+
+  _dart_TWAESDecryptCBC _TWAESDecryptCBC;
+
+  /// /// Encrypts a block of data using AES in Counter (CTR) mode.
+  /// ///
+  /// /// \param key encryption key, must be 16, 24, or 32 bytes long.
+  /// /// \param data data to encrypt.
+  /// /// \param iv initialization vector.
+  ffi.Pointer<ffi.Void> TWAESEncryptCTR(
+    ffi.Pointer<ffi.Void> key,
+    ffi.Pointer<ffi.Void> data,
+    ffi.Pointer<ffi.Void> iv,
+  ) {
+    _TWAESEncryptCTR ??=
+        _dylib.lookupFunction<_c_TWAESEncryptCTR, _dart_TWAESEncryptCTR>(
+            'TWAESEncryptCTR');
+    return _TWAESEncryptCTR(
+      key,
+      data,
+      iv,
+    );
+  }
+
+  _dart_TWAESEncryptCTR _TWAESEncryptCTR;
+
+  /// /// Decrypts a block of data using AES in Counter (CTR) mode.
+  /// ///
+  /// /// \param key decryption key, must be 16, 24, or 32 bytes long.
+  /// /// \param data data to decrypt.
+  /// /// \param iv initialization vector.
+  ffi.Pointer<ffi.Void> TWAESDecryptCTR(
+    ffi.Pointer<ffi.Void> key,
+    ffi.Pointer<ffi.Void> data,
+    ffi.Pointer<ffi.Void> iv,
+  ) {
+    _TWAESDecryptCTR ??=
+        _dylib.lookupFunction<_c_TWAESDecryptCTR, _dart_TWAESDecryptCTR>(
+            'TWAESDecryptCTR');
+    return _TWAESDecryptCTR(
+      key,
+      data,
+      iv,
+    );
+  }
+
+  _dart_TWAESDecryptCTR _TWAESDecryptCTR;
+
+  /// /// Compares two addresses for equality.
+  int TWAnyAddressEqual(
+    ffi.Pointer<TWAnyAddress> lhs,
+    ffi.Pointer<TWAnyAddress> rhs,
+  ) {
+    _TWAnyAddressEqual ??=
+        _dylib.lookupFunction<_c_TWAnyAddressEqual, _dart_TWAnyAddressEqual>(
+            'TWAnyAddressEqual');
+    return _TWAnyAddressEqual(
+      lhs,
+      rhs,
+    );
+  }
+
+  _dart_TWAnyAddressEqual _TWAnyAddressEqual;
+
+  /// /// Determines if the string is a valid Any address.
+  int TWAnyAddressIsValid(
+    ffi.Pointer<ffi.Void> string,
+    int coin,
+  ) {
+    _TWAnyAddressIsValid ??= _dylib.lookupFunction<_c_TWAnyAddressIsValid,
+        _dart_TWAnyAddressIsValid>('TWAnyAddressIsValid');
+    return _TWAnyAddressIsValid(
+      string,
+      coin,
+    );
+  }
+
+  _dart_TWAnyAddressIsValid _TWAnyAddressIsValid;
+
+  /// /// Creates an address from a string representaion.
+  ffi.Pointer<TWAnyAddress> TWAnyAddressCreateWithString(
+    ffi.Pointer<ffi.Void> string,
+    int coin,
+  ) {
+    _TWAnyAddressCreateWithString ??= _dylib.lookupFunction<
+        _c_TWAnyAddressCreateWithString,
+        _dart_TWAnyAddressCreateWithString>('TWAnyAddressCreateWithString');
+    return _TWAnyAddressCreateWithString(
+      string,
+      coin,
+    );
+  }
+
+  _dart_TWAnyAddressCreateWithString _TWAnyAddressCreateWithString;
+
+  /// /// Creates an address from a public key.
+  ffi.Pointer<TWAnyAddress> TWAnyAddressCreateWithPublicKey(
+    ffi.Pointer<TWPublicKey> publicKey,
+    int coin,
+  ) {
+    _TWAnyAddressCreateWithPublicKey ??= _dylib.lookupFunction<
+            _c_TWAnyAddressCreateWithPublicKey,
+            _dart_TWAnyAddressCreateWithPublicKey>(
+        'TWAnyAddressCreateWithPublicKey');
+    return _TWAnyAddressCreateWithPublicKey(
+      publicKey,
+      coin,
+    );
+  }
+
+  _dart_TWAnyAddressCreateWithPublicKey _TWAnyAddressCreateWithPublicKey;
+
+  void TWAnyAddressDelete(
+    ffi.Pointer<TWAnyAddress> address,
+  ) {
+    _TWAnyAddressDelete ??=
+        _dylib.lookupFunction<_c_TWAnyAddressDelete, _dart_TWAnyAddressDelete>(
+            'TWAnyAddressDelete');
+    return _TWAnyAddressDelete(
+      address,
+    );
+  }
+
+  _dart_TWAnyAddressDelete _TWAnyAddressDelete;
+
+  /// /// Returns the address string representation.
+  ffi.Pointer<ffi.Void> TWAnyAddressDescription(
+    ffi.Pointer<TWAnyAddress> address,
+  ) {
+    _TWAnyAddressDescription ??= _dylib.lookupFunction<
+        _c_TWAnyAddressDescription,
+        _dart_TWAnyAddressDescription>('TWAnyAddressDescription');
+    return _TWAnyAddressDescription(
+      address,
+    );
+  }
+
+  _dart_TWAnyAddressDescription _TWAnyAddressDescription;
+
+  /// /// Returns coin type of address.
+  int TWAnyAddressCoin(
+    ffi.Pointer<TWAnyAddress> address,
+  ) {
+    _TWAnyAddressCoin ??=
+        _dylib.lookupFunction<_c_TWAnyAddressCoin, _dart_TWAnyAddressCoin>(
+            'TWAnyAddressCoin');
+    return _TWAnyAddressCoin(
+      address,
+    );
+  }
+
+  _dart_TWAnyAddressCoin _TWAnyAddressCoin;
+
+  /// /// Returns underlaying data (public key or key hash)
+  ffi.Pointer<ffi.Void> TWAnyAddressData(
+    ffi.Pointer<TWAnyAddress> address,
+  ) {
+    _TWAnyAddressData ??=
+        _dylib.lookupFunction<_c_TWAnyAddressData, _dart_TWAnyAddressData>(
+            'TWAnyAddressData');
+    return _TWAnyAddressData(
+      address,
+    );
+  }
+
+  _dart_TWAnyAddressData _TWAnyAddressData;
+
+  /// /// Signs a transaction.
+  ffi.Pointer<ffi.Void> TWAnySignerSign(
+    ffi.Pointer<ffi.Void> input,
+    int coin,
+  ) {
+    _TWAnySignerSign ??=
+        _dylib.lookupFunction<_c_TWAnySignerSign, _dart_TWAnySignerSign>(
+            'TWAnySignerSign');
+    return _TWAnySignerSign(
+      input,
+      coin,
+    );
+  }
+
+  _dart_TWAnySignerSign _TWAnySignerSign;
+
+  /// /// Signs a json transaction with private key.
+  ffi.Pointer<ffi.Void> TWAnySignerSignJSON(
+    ffi.Pointer<ffi.Void> json,
+    ffi.Pointer<ffi.Void> key,
+    int coin,
+  ) {
+    _TWAnySignerSignJSON ??= _dylib.lookupFunction<_c_TWAnySignerSignJSON,
+        _dart_TWAnySignerSignJSON>('TWAnySignerSignJSON');
+    return _TWAnySignerSignJSON(
+      json,
+      key,
+      coin,
+    );
+  }
+
+  _dart_TWAnySignerSignJSON _TWAnySignerSignJSON;
+
+  int TWAnySignerSupportsJSON(
+    int coin,
+  ) {
+    _TWAnySignerSupportsJSON ??= _dylib.lookupFunction<
+        _c_TWAnySignerSupportsJSON,
+        _dart_TWAnySignerSupportsJSON>('TWAnySignerSupportsJSON');
+    return _TWAnySignerSupportsJSON(
+      coin,
+    );
+  }
+
+  _dart_TWAnySignerSupportsJSON _TWAnySignerSupportsJSON;
+
+  /// /// Encodes serialized SigningInput data to raw platform/coin specific bytes
+  /// /// Example: EthereumSigningInput will be encoded as raw RLP bytes which can be sent over JSONRPC (eth_sendRawTransaction)
+  ffi.Pointer<ffi.Void> TWAnySignerEncode(
+    ffi.Pointer<ffi.Void> input,
+    int coin,
+  ) {
+    _TWAnySignerEncode ??=
+        _dylib.lookupFunction<_c_TWAnySignerEncode, _dart_TWAnySignerEncode>(
+            'TWAnySignerEncode');
+    return _TWAnySignerEncode(
+      input,
+      coin,
+    );
+  }
+
+  _dart_TWAnySignerEncode _TWAnySignerEncode;
+
+  /// /// Decodes raw platform/coin specific bytes to representable json data
+  /// /// Example: Ethereum RLP bytes will be decoded into same json returned from JSONRPC (eth_getTransactionByHash)
+  ffi.Pointer<ffi.Void> TWAnySignerDecode(
+    ffi.Pointer<ffi.Void> input,
+    int coin,
+  ) {
+    _TWAnySignerDecode ??=
+        _dylib.lookupFunction<_c_TWAnySignerDecode, _dart_TWAnySignerDecode>(
+            'TWAnySignerDecode');
+    return _TWAnySignerDecode(
+      input,
+      coin,
+    );
+  }
+
+  _dart_TWAnySignerDecode _TWAnySignerDecode;
+
+  /// /// Plan a transaction (for UTXO chains).
+  ffi.Pointer<ffi.Void> TWAnySignerPlan(
+    ffi.Pointer<ffi.Void> input,
+    int coin,
+  ) {
+    _TWAnySignerPlan ??=
+        _dylib.lookupFunction<_c_TWAnySignerPlan, _dart_TWAnySignerPlan>(
+            'TWAnySignerPlan');
+    return _TWAnySignerPlan(
+      input,
+      coin,
+    );
+  }
+
+  _dart_TWAnySignerPlan _TWAnySignerPlan;
+
+  /// /// Encodes data as a Base58 string, including the checksum.
+  ffi.Pointer<ffi.Void> TWBase58Encode(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWBase58Encode ??=
+        _dylib.lookupFunction<_c_TWBase58Encode, _dart_TWBase58Encode>(
+            'TWBase58Encode');
+    return _TWBase58Encode(
+      data,
+    );
+  }
+
+  _dart_TWBase58Encode _TWBase58Encode;
+
+  /// /// Encodes data as a Base58 string, not including the checksum.
+  ffi.Pointer<ffi.Void> TWBase58EncodeNoCheck(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWBase58EncodeNoCheck ??= _dylib.lookupFunction<_c_TWBase58EncodeNoCheck,
+        _dart_TWBase58EncodeNoCheck>('TWBase58EncodeNoCheck');
+    return _TWBase58EncodeNoCheck(
+      data,
+    );
+  }
+
+  _dart_TWBase58EncodeNoCheck _TWBase58EncodeNoCheck;
+
+  /// /// Decodes a Base58 string checking the checksum.
+  ffi.Pointer<ffi.Void> TWBase58Decode(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWBase58Decode ??=
+        _dylib.lookupFunction<_c_TWBase58Decode, _dart_TWBase58Decode>(
+            'TWBase58Decode');
+    return _TWBase58Decode(
+      string,
+    );
+  }
+
+  _dart_TWBase58Decode _TWBase58Decode;
+
+  /// /// Decodes a Base58 string with no checksum.
+  ffi.Pointer<ffi.Void> TWBase58DecodeNoCheck(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWBase58DecodeNoCheck ??= _dylib.lookupFunction<_c_TWBase58DecodeNoCheck,
+        _dart_TWBase58DecodeNoCheck>('TWBase58DecodeNoCheck');
+    return _TWBase58DecodeNoCheck(
+      string,
+    );
+  }
+
+  _dart_TWBase58DecodeNoCheck _TWBase58DecodeNoCheck;
+
+  /// /// Compares two addresses for equality.
+  int TWBitcoinAddressEqual(
+    ffi.Pointer<TWBitcoinAddress> lhs,
+    ffi.Pointer<TWBitcoinAddress> rhs,
+  ) {
+    _TWBitcoinAddressEqual ??= _dylib.lookupFunction<_c_TWBitcoinAddressEqual,
+        _dart_TWBitcoinAddressEqual>('TWBitcoinAddressEqual');
+    return _TWBitcoinAddressEqual(
+      lhs,
+      rhs,
+    );
+  }
+
+  _dart_TWBitcoinAddressEqual _TWBitcoinAddressEqual;
+
+  /// /// Determines if the data is a valid Bitcoin address.
+  int TWBitcoinAddressIsValid(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWBitcoinAddressIsValid ??= _dylib.lookupFunction<
+        _c_TWBitcoinAddressIsValid,
+        _dart_TWBitcoinAddressIsValid>('TWBitcoinAddressIsValid');
+    return _TWBitcoinAddressIsValid(
+      data,
+    );
+  }
+
+  _dart_TWBitcoinAddressIsValid _TWBitcoinAddressIsValid;
+
+  /// /// Determines if the string is a valid Bitcoin address.
+  int TWBitcoinAddressIsValidString(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWBitcoinAddressIsValidString ??= _dylib.lookupFunction<
+        _c_TWBitcoinAddressIsValidString,
+        _dart_TWBitcoinAddressIsValidString>('TWBitcoinAddressIsValidString');
+    return _TWBitcoinAddressIsValidString(
+      string,
+    );
+  }
+
+  _dart_TWBitcoinAddressIsValidString _TWBitcoinAddressIsValidString;
+
+  /// /// Initializes an address from a base58 sring representaion.
+  ffi.Pointer<TWBitcoinAddress> TWBitcoinAddressCreateWithString(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWBitcoinAddressCreateWithString ??= _dylib.lookupFunction<
+            _c_TWBitcoinAddressCreateWithString,
+            _dart_TWBitcoinAddressCreateWithString>(
+        'TWBitcoinAddressCreateWithString');
+    return _TWBitcoinAddressCreateWithString(
+      string,
+    );
+  }
+
+  _dart_TWBitcoinAddressCreateWithString _TWBitcoinAddressCreateWithString;
+
+  /// /// Initializes an address from raw data.
+  ffi.Pointer<TWBitcoinAddress> TWBitcoinAddressCreateWithData(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWBitcoinAddressCreateWithData ??= _dylib.lookupFunction<
+        _c_TWBitcoinAddressCreateWithData,
+        _dart_TWBitcoinAddressCreateWithData>('TWBitcoinAddressCreateWithData');
+    return _TWBitcoinAddressCreateWithData(
+      data,
+    );
+  }
+
+  _dart_TWBitcoinAddressCreateWithData _TWBitcoinAddressCreateWithData;
+
+  /// /// Initializes an address from a public key and a prefix byte.
+  ffi.Pointer<TWBitcoinAddress> TWBitcoinAddressCreateWithPublicKey(
+    ffi.Pointer<TWPublicKey> publicKey,
+    int prefix,
+  ) {
+    _TWBitcoinAddressCreateWithPublicKey ??= _dylib.lookupFunction<
+            _c_TWBitcoinAddressCreateWithPublicKey,
+            _dart_TWBitcoinAddressCreateWithPublicKey>(
+        'TWBitcoinAddressCreateWithPublicKey');
+    return _TWBitcoinAddressCreateWithPublicKey(
+      publicKey,
+      prefix,
+    );
+  }
+
+  _dart_TWBitcoinAddressCreateWithPublicKey
+      _TWBitcoinAddressCreateWithPublicKey;
+
+  void TWBitcoinAddressDelete(
+    ffi.Pointer<TWBitcoinAddress> address,
+  ) {
+    _TWBitcoinAddressDelete ??= _dylib.lookupFunction<_c_TWBitcoinAddressDelete,
+        _dart_TWBitcoinAddressDelete>('TWBitcoinAddressDelete');
+    return _TWBitcoinAddressDelete(
+      address,
+    );
+  }
+
+  _dart_TWBitcoinAddressDelete _TWBitcoinAddressDelete;
+
+  /// /// Returns the address base58 string representation.
+  ffi.Pointer<ffi.Void> TWBitcoinAddressDescription(
+    ffi.Pointer<TWBitcoinAddress> address,
+  ) {
+    _TWBitcoinAddressDescription ??= _dylib.lookupFunction<
+        _c_TWBitcoinAddressDescription,
+        _dart_TWBitcoinAddressDescription>('TWBitcoinAddressDescription');
+    return _TWBitcoinAddressDescription(
+      address,
+    );
+  }
+
+  _dart_TWBitcoinAddressDescription _TWBitcoinAddressDescription;
+
+  /// /// Returns the address prefix.
+  int TWBitcoinAddressPrefix(
+    ffi.Pointer<TWBitcoinAddress> address,
+  ) {
+    _TWBitcoinAddressPrefix ??= _dylib.lookupFunction<_c_TWBitcoinAddressPrefix,
+        _dart_TWBitcoinAddressPrefix>('TWBitcoinAddressPrefix');
+    return _TWBitcoinAddressPrefix(
+      address,
+    );
+  }
+
+  _dart_TWBitcoinAddressPrefix _TWBitcoinAddressPrefix;
+
+  /// /// Returns the keyhash data.
+  ffi.Pointer<ffi.Void> TWBitcoinAddressKeyhash(
+    ffi.Pointer<TWBitcoinAddress> address,
+  ) {
+    _TWBitcoinAddressKeyhash ??= _dylib.lookupFunction<
+        _c_TWBitcoinAddressKeyhash,
+        _dart_TWBitcoinAddressKeyhash>('TWBitcoinAddressKeyhash');
+    return _TWBitcoinAddressKeyhash(
+      address,
+    );
+  }
+
+  _dart_TWBitcoinAddressKeyhash _TWBitcoinAddressKeyhash;
+
+  int TWBitcoinSigHashTypeIsSingle(
+    int type,
+  ) {
+    _TWBitcoinSigHashTypeIsSingle ??= _dylib.lookupFunction<
+        _c_TWBitcoinSigHashTypeIsSingle,
+        _dart_TWBitcoinSigHashTypeIsSingle>('TWBitcoinSigHashTypeIsSingle');
+    return _TWBitcoinSigHashTypeIsSingle(
+      type,
+    );
+  }
+
+  _dart_TWBitcoinSigHashTypeIsSingle _TWBitcoinSigHashTypeIsSingle;
+
+  int TWBitcoinSigHashTypeIsNone(
+    int type,
+  ) {
+    _TWBitcoinSigHashTypeIsNone ??= _dylib.lookupFunction<
+        _c_TWBitcoinSigHashTypeIsNone,
+        _dart_TWBitcoinSigHashTypeIsNone>('TWBitcoinSigHashTypeIsNone');
+    return _TWBitcoinSigHashTypeIsNone(
+      type,
+    );
+  }
+
+  _dart_TWBitcoinSigHashTypeIsNone _TWBitcoinSigHashTypeIsNone;
+
+  /// /// Creates an empty script.
+  ffi.Pointer<TWBitcoinScript> TWBitcoinScriptCreate() {
+    _TWBitcoinScriptCreate ??= _dylib.lookupFunction<_c_TWBitcoinScriptCreate,
+        _dart_TWBitcoinScriptCreate>('TWBitcoinScriptCreate');
+    return _TWBitcoinScriptCreate();
+  }
+
+  _dart_TWBitcoinScriptCreate _TWBitcoinScriptCreate;
+
+  /// /// Creates a script from a raw data representation.
+  ffi.Pointer<TWBitcoinScript> TWBitcoinScriptCreateWithData(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWBitcoinScriptCreateWithData ??= _dylib.lookupFunction<
+        _c_TWBitcoinScriptCreateWithData,
+        _dart_TWBitcoinScriptCreateWithData>('TWBitcoinScriptCreateWithData');
+    return _TWBitcoinScriptCreateWithData(
+      data,
+    );
+  }
+
+  _dart_TWBitcoinScriptCreateWithData _TWBitcoinScriptCreateWithData;
+
+  ffi.Pointer<TWBitcoinScript> TWBitcoinScriptCreateWithBytes(
+    ffi.Pointer<ffi.Uint8> bytes,
+    int size,
+  ) {
+    _TWBitcoinScriptCreateWithBytes ??= _dylib.lookupFunction<
+        _c_TWBitcoinScriptCreateWithBytes,
+        _dart_TWBitcoinScriptCreateWithBytes>('TWBitcoinScriptCreateWithBytes');
+    return _TWBitcoinScriptCreateWithBytes(
+      bytes,
+      size,
+    );
+  }
+
+  _dart_TWBitcoinScriptCreateWithBytes _TWBitcoinScriptCreateWithBytes;
+
+  /// /// Creates a script by copying an existring script.
+  ffi.Pointer<TWBitcoinScript> TWBitcoinScriptCreateCopy(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptCreateCopy ??= _dylib.lookupFunction<
+        _c_TWBitcoinScriptCreateCopy,
+        _dart_TWBitcoinScriptCreateCopy>('TWBitcoinScriptCreateCopy');
+    return _TWBitcoinScriptCreateCopy(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptCreateCopy _TWBitcoinScriptCreateCopy;
+
+  void TWBitcoinScriptDelete(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptDelete ??= _dylib.lookupFunction<_c_TWBitcoinScriptDelete,
+        _dart_TWBitcoinScriptDelete>('TWBitcoinScriptDelete');
+    return _TWBitcoinScriptDelete(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptDelete _TWBitcoinScriptDelete;
+
+  int TWBitcoinScriptSize(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptSize ??= _dylib.lookupFunction<_c_TWBitcoinScriptSize,
+        _dart_TWBitcoinScriptSize>('TWBitcoinScriptSize');
+    return _TWBitcoinScriptSize(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptSize _TWBitcoinScriptSize;
+
+  ffi.Pointer<ffi.Void> TWBitcoinScriptData(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptData ??= _dylib.lookupFunction<_c_TWBitcoinScriptData,
+        _dart_TWBitcoinScriptData>('TWBitcoinScriptData');
+    return _TWBitcoinScriptData(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptData _TWBitcoinScriptData;
+
+  ffi.Pointer<ffi.Void> TWBitcoinScriptScriptHash(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptScriptHash ??= _dylib.lookupFunction<
+        _c_TWBitcoinScriptScriptHash,
+        _dart_TWBitcoinScriptScriptHash>('TWBitcoinScriptScriptHash');
+    return _TWBitcoinScriptScriptHash(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptScriptHash _TWBitcoinScriptScriptHash;
+
+  /// /// Determines whether this is a pay-to-script-hash (P2SH) script.
+  int TWBitcoinScriptIsPayToScriptHash(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptIsPayToScriptHash ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptIsPayToScriptHash,
+            _dart_TWBitcoinScriptIsPayToScriptHash>(
+        'TWBitcoinScriptIsPayToScriptHash');
+    return _TWBitcoinScriptIsPayToScriptHash(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptIsPayToScriptHash _TWBitcoinScriptIsPayToScriptHash;
+
+  /// /// Determines whether this is a pay-to-witness-script-hash (P2WSH) script.
+  int TWBitcoinScriptIsPayToWitnessScriptHash(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptIsPayToWitnessScriptHash ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptIsPayToWitnessScriptHash,
+            _dart_TWBitcoinScriptIsPayToWitnessScriptHash>(
+        'TWBitcoinScriptIsPayToWitnessScriptHash');
+    return _TWBitcoinScriptIsPayToWitnessScriptHash(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptIsPayToWitnessScriptHash
+      _TWBitcoinScriptIsPayToWitnessScriptHash;
+
+  /// /// Determines whether this is a pay-to-witness-public-key-hash (P2WPKH) script.
+  int TWBitcoinScriptIsPayToWitnessPublicKeyHash(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptIsPayToWitnessPublicKeyHash ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptIsPayToWitnessPublicKeyHash,
+            _dart_TWBitcoinScriptIsPayToWitnessPublicKeyHash>(
+        'TWBitcoinScriptIsPayToWitnessPublicKeyHash');
+    return _TWBitcoinScriptIsPayToWitnessPublicKeyHash(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptIsPayToWitnessPublicKeyHash
+      _TWBitcoinScriptIsPayToWitnessPublicKeyHash;
+
+  /// /// Determines whether this is a witness programm script.
+  int TWBitcoinScriptIsWitnessProgram(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptIsWitnessProgram ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptIsWitnessProgram,
+            _dart_TWBitcoinScriptIsWitnessProgram>(
+        'TWBitcoinScriptIsWitnessProgram');
+    return _TWBitcoinScriptIsWitnessProgram(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptIsWitnessProgram _TWBitcoinScriptIsWitnessProgram;
+
+  int TWBitcoinScriptEqual(
+    ffi.Pointer<TWBitcoinScript> lhs,
+    ffi.Pointer<TWBitcoinScript> rhs,
+  ) {
+    _TWBitcoinScriptEqual ??= _dylib.lookupFunction<_c_TWBitcoinScriptEqual,
+        _dart_TWBitcoinScriptEqual>('TWBitcoinScriptEqual');
+    return _TWBitcoinScriptEqual(
+      lhs,
+      rhs,
+    );
+  }
+
+  _dart_TWBitcoinScriptEqual _TWBitcoinScriptEqual;
+
+  /// /// Matches the script to a pay-to-public-key (P2PK) script.
+  /// ///
+  /// /// - Returns: the public key.
+  ffi.Pointer<ffi.Void> TWBitcoinScriptMatchPayToPubkey(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptMatchPayToPubkey ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptMatchPayToPubkey,
+            _dart_TWBitcoinScriptMatchPayToPubkey>(
+        'TWBitcoinScriptMatchPayToPubkey');
+    return _TWBitcoinScriptMatchPayToPubkey(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptMatchPayToPubkey _TWBitcoinScriptMatchPayToPubkey;
+
+  /// /// Matches the script to a pay-to-public-key-hash (P2PKH).
+  /// ///
+  /// /// - Returns: the key hash.
+  ffi.Pointer<ffi.Void> TWBitcoinScriptMatchPayToPubkeyHash(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptMatchPayToPubkeyHash ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptMatchPayToPubkeyHash,
+            _dart_TWBitcoinScriptMatchPayToPubkeyHash>(
+        'TWBitcoinScriptMatchPayToPubkeyHash');
+    return _TWBitcoinScriptMatchPayToPubkeyHash(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptMatchPayToPubkeyHash
+      _TWBitcoinScriptMatchPayToPubkeyHash;
+
+  /// /// Matches the script to a pay-to-script-hash (P2SH).
+  /// ///
+  /// /// - Returns: the script hash.
+  ffi.Pointer<ffi.Void> TWBitcoinScriptMatchPayToScriptHash(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptMatchPayToScriptHash ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptMatchPayToScriptHash,
+            _dart_TWBitcoinScriptMatchPayToScriptHash>(
+        'TWBitcoinScriptMatchPayToScriptHash');
+    return _TWBitcoinScriptMatchPayToScriptHash(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptMatchPayToScriptHash
+      _TWBitcoinScriptMatchPayToScriptHash;
+
+  /// /// Matches the script to a pay-to-witness-public-key-hash (P2WPKH).
+  /// ///
+  /// /// - Returns: the key hash.
+  ffi.Pointer<ffi.Void> TWBitcoinScriptMatchPayToWitnessPublicKeyHash(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptMatchPayToWitnessPublicKeyHash ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptMatchPayToWitnessPublicKeyHash,
+            _dart_TWBitcoinScriptMatchPayToWitnessPublicKeyHash>(
+        'TWBitcoinScriptMatchPayToWitnessPublicKeyHash');
+    return _TWBitcoinScriptMatchPayToWitnessPublicKeyHash(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptMatchPayToWitnessPublicKeyHash
+      _TWBitcoinScriptMatchPayToWitnessPublicKeyHash;
+
+  /// /// Matches the script to a pay-to-witness-script-hash (P2WSH).
+  /// ///
+  /// /// - Returns: the script hash, a SHA256 of the witness script.
+  ffi.Pointer<ffi.Void> TWBitcoinScriptMatchPayToWitnessScriptHash(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptMatchPayToWitnessScriptHash ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptMatchPayToWitnessScriptHash,
+            _dart_TWBitcoinScriptMatchPayToWitnessScriptHash>(
+        'TWBitcoinScriptMatchPayToWitnessScriptHash');
+    return _TWBitcoinScriptMatchPayToWitnessScriptHash(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptMatchPayToWitnessScriptHash
+      _TWBitcoinScriptMatchPayToWitnessScriptHash;
+
+  /// /// Encodes the script.
+  ffi.Pointer<ffi.Void> TWBitcoinScriptEncode(
+    ffi.Pointer<TWBitcoinScript> script,
+  ) {
+    _TWBitcoinScriptEncode ??= _dylib.lookupFunction<_c_TWBitcoinScriptEncode,
+        _dart_TWBitcoinScriptEncode>('TWBitcoinScriptEncode');
+    return _TWBitcoinScriptEncode(
+      script,
+    );
+  }
+
+  _dart_TWBitcoinScriptEncode _TWBitcoinScriptEncode;
+
+  /// /// Builds a standard 'pay to public key hash' script.
+  ffi.Pointer<TWBitcoinScript> TWBitcoinScriptBuildPayToPublicKeyHash(
+    ffi.Pointer<ffi.Void> hash,
+  ) {
+    _TWBitcoinScriptBuildPayToPublicKeyHash ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptBuildPayToPublicKeyHash,
+            _dart_TWBitcoinScriptBuildPayToPublicKeyHash>(
+        'TWBitcoinScriptBuildPayToPublicKeyHash');
+    return _TWBitcoinScriptBuildPayToPublicKeyHash(
+      hash,
+    );
+  }
+
+  _dart_TWBitcoinScriptBuildPayToPublicKeyHash
+      _TWBitcoinScriptBuildPayToPublicKeyHash;
+
+  /// /// Builds a standard 'pay to script hash' script.
+  ffi.Pointer<TWBitcoinScript> TWBitcoinScriptBuildPayToScriptHash(
+    ffi.Pointer<ffi.Void> scriptHash,
+  ) {
+    _TWBitcoinScriptBuildPayToScriptHash ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptBuildPayToScriptHash,
+            _dart_TWBitcoinScriptBuildPayToScriptHash>(
+        'TWBitcoinScriptBuildPayToScriptHash');
+    return _TWBitcoinScriptBuildPayToScriptHash(
+      scriptHash,
+    );
+  }
+
+  _dart_TWBitcoinScriptBuildPayToScriptHash
+      _TWBitcoinScriptBuildPayToScriptHash;
+
+  /// /// Builds a pay-to-witness-public-key-hash (P2WPKH) script.
+  ffi.Pointer<TWBitcoinScript> TWBitcoinScriptBuildPayToWitnessPubkeyHash(
+    ffi.Pointer<ffi.Void> hash,
+  ) {
+    _TWBitcoinScriptBuildPayToWitnessPubkeyHash ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptBuildPayToWitnessPubkeyHash,
+            _dart_TWBitcoinScriptBuildPayToWitnessPubkeyHash>(
+        'TWBitcoinScriptBuildPayToWitnessPubkeyHash');
+    return _TWBitcoinScriptBuildPayToWitnessPubkeyHash(
+      hash,
+    );
+  }
+
+  _dart_TWBitcoinScriptBuildPayToWitnessPubkeyHash
+      _TWBitcoinScriptBuildPayToWitnessPubkeyHash;
+
+  /// /// Builds a pay-to-witness-script-hash (P2WSH) script.
+  ffi.Pointer<TWBitcoinScript> TWBitcoinScriptBuildPayToWitnessScriptHash(
+    ffi.Pointer<ffi.Void> scriptHash,
+  ) {
+    _TWBitcoinScriptBuildPayToWitnessScriptHash ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptBuildPayToWitnessScriptHash,
+            _dart_TWBitcoinScriptBuildPayToWitnessScriptHash>(
+        'TWBitcoinScriptBuildPayToWitnessScriptHash');
+    return _TWBitcoinScriptBuildPayToWitnessScriptHash(
+      scriptHash,
+    );
+  }
+
+  _dart_TWBitcoinScriptBuildPayToWitnessScriptHash
+      _TWBitcoinScriptBuildPayToWitnessScriptHash;
+
+  /// /// Builds a appropriate lock script for the given address.
+  ffi.Pointer<TWBitcoinScript> TWBitcoinScriptLockScriptForAddress(
+    ffi.Pointer<ffi.Void> address,
+    int coin,
+  ) {
+    _TWBitcoinScriptLockScriptForAddress ??= _dylib.lookupFunction<
+            _c_TWBitcoinScriptLockScriptForAddress,
+            _dart_TWBitcoinScriptLockScriptForAddress>(
+        'TWBitcoinScriptLockScriptForAddress');
+    return _TWBitcoinScriptLockScriptForAddress(
+      address,
+      coin,
+    );
+  }
+
+  _dart_TWBitcoinScriptLockScriptForAddress
+      _TWBitcoinScriptLockScriptForAddress;
+
+  int TWBitcoinScriptHashTypeForCoin(
+    int coinType,
+  ) {
+    _TWBitcoinScriptHashTypeForCoin ??= _dylib.lookupFunction<
+        _c_TWBitcoinScriptHashTypeForCoin,
+        _dart_TWBitcoinScriptHashTypeForCoin>('TWBitcoinScriptHashTypeForCoin');
+    return _TWBitcoinScriptHashTypeForCoin(
+      coinType,
+    );
+  }
+
+  _dart_TWBitcoinScriptHashTypeForCoin _TWBitcoinScriptHashTypeForCoin;
+
+  /// /// Returns stock symbol of coin
+  ffi.Pointer<ffi.Void> TWCoinTypeConfigurationGetSymbol(
+    int type,
+  ) {
+    _TWCoinTypeConfigurationGetSymbol ??= _dylib.lookupFunction<
+            _c_TWCoinTypeConfigurationGetSymbol,
+            _dart_TWCoinTypeConfigurationGetSymbol>(
+        'TWCoinTypeConfigurationGetSymbol');
+    return _TWCoinTypeConfigurationGetSymbol(
+      type,
+    );
+  }
+
+  _dart_TWCoinTypeConfigurationGetSymbol _TWCoinTypeConfigurationGetSymbol;
+
+  /// /// Returns max count decimal places for minimal coin unit
+  int TWCoinTypeConfigurationGetDecimals(
+    int type,
+  ) {
+    _TWCoinTypeConfigurationGetDecimals ??= _dylib.lookupFunction<
+            _c_TWCoinTypeConfigurationGetDecimals,
+            _dart_TWCoinTypeConfigurationGetDecimals>(
+        'TWCoinTypeConfigurationGetDecimals');
+    return _TWCoinTypeConfigurationGetDecimals(
+      type,
+    );
+  }
+
+  _dart_TWCoinTypeConfigurationGetDecimals _TWCoinTypeConfigurationGetDecimals;
+
+  /// /// Returns transaction url in blockchain explorer
+  ffi.Pointer<ffi.Void> TWCoinTypeConfigurationGetTransactionURL(
+    int type,
+    ffi.Pointer<ffi.Void> transactionID,
+  ) {
+    _TWCoinTypeConfigurationGetTransactionURL ??= _dylib.lookupFunction<
+            _c_TWCoinTypeConfigurationGetTransactionURL,
+            _dart_TWCoinTypeConfigurationGetTransactionURL>(
+        'TWCoinTypeConfigurationGetTransactionURL');
+    return _TWCoinTypeConfigurationGetTransactionURL(
+      type,
+      transactionID,
+    );
+  }
+
+  _dart_TWCoinTypeConfigurationGetTransactionURL
+      _TWCoinTypeConfigurationGetTransactionURL;
+
+  /// /// Returns account url in blockchain explorer
+  ffi.Pointer<ffi.Void> TWCoinTypeConfigurationGetAccountURL(
+    int type,
+    ffi.Pointer<ffi.Void> accountID,
+  ) {
+    _TWCoinTypeConfigurationGetAccountURL ??= _dylib.lookupFunction<
+            _c_TWCoinTypeConfigurationGetAccountURL,
+            _dart_TWCoinTypeConfigurationGetAccountURL>(
+        'TWCoinTypeConfigurationGetAccountURL');
+    return _TWCoinTypeConfigurationGetAccountURL(
+      type,
+      accountID,
+    );
+  }
+
+  _dart_TWCoinTypeConfigurationGetAccountURL
+      _TWCoinTypeConfigurationGetAccountURL;
+
+  /// /// Returns full name of coin in lower case
+  ffi.Pointer<ffi.Void> TWCoinTypeConfigurationGetID(
+    int type,
+  ) {
+    _TWCoinTypeConfigurationGetID ??= _dylib.lookupFunction<
+        _c_TWCoinTypeConfigurationGetID,
+        _dart_TWCoinTypeConfigurationGetID>('TWCoinTypeConfigurationGetID');
+    return _TWCoinTypeConfigurationGetID(
+      type,
+    );
+  }
+
+  _dart_TWCoinTypeConfigurationGetID _TWCoinTypeConfigurationGetID;
+
+  /// /// Returns full name of coin
+  ffi.Pointer<ffi.Void> TWCoinTypeConfigurationGetName(
+    int type,
+  ) {
+    _TWCoinTypeConfigurationGetName ??= _dylib.lookupFunction<
+        _c_TWCoinTypeConfigurationGetName,
+        _dart_TWCoinTypeConfigurationGetName>('TWCoinTypeConfigurationGetName');
+    return _TWCoinTypeConfigurationGetName(
+      type,
+    );
+  }
+
+  _dart_TWCoinTypeConfigurationGetName _TWCoinTypeConfigurationGetName;
+
+  /// /// Encode function to Eth ABI binary
+  ffi.Pointer<ffi.Void> TWEthereumAbiEncode(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+  ) {
+    _TWEthereumAbiEncode ??= _dylib.lookupFunction<_c_TWEthereumAbiEncode,
+        _dart_TWEthereumAbiEncode>('TWEthereumAbiEncode');
+    return _TWEthereumAbiEncode(
+      fn,
+    );
+  }
+
+  _dart_TWEthereumAbiEncode _TWEthereumAbiEncode;
+
+  /// /// Decode function output from Eth ABI binary, fill output parameters
+  int TWEthereumAbiDecodeOutput(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    ffi.Pointer<ffi.Void> encoded,
+  ) {
+    _TWEthereumAbiDecodeOutput ??= _dylib.lookupFunction<
+        _c_TWEthereumAbiDecodeOutput,
+        _dart_TWEthereumAbiDecodeOutput>('TWEthereumAbiDecodeOutput');
+    return _TWEthereumAbiDecodeOutput(
+      fn,
+      encoded,
+    );
+  }
+
+  _dart_TWEthereumAbiDecodeOutput _TWEthereumAbiDecodeOutput;
+
+  /// /// Decode function call data to human readable json format, according to input abi json
+  ffi.Pointer<ffi.Void> TWEthereumAbiDecodeCall(
+    ffi.Pointer<ffi.Void> data,
+    ffi.Pointer<ffi.Void> abi,
+  ) {
+    _TWEthereumAbiDecodeCall ??= _dylib.lookupFunction<
+        _c_TWEthereumAbiDecodeCall,
+        _dart_TWEthereumAbiDecodeCall>('TWEthereumAbiDecodeCall');
+    return _TWEthereumAbiDecodeCall(
+      data,
+      abi,
+    );
+  }
+
+  _dart_TWEthereumAbiDecodeCall _TWEthereumAbiDecodeCall;
+
+  /// /// Creates a function object, with the given name and empty parameter list.  It must be deleted at the end.
+  ffi.Pointer<TWEthereumAbiFunction> TWEthereumAbiFunctionCreateWithString(
+    ffi.Pointer<ffi.Void> name,
+  ) {
+    _TWEthereumAbiFunctionCreateWithString ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionCreateWithString,
+            _dart_TWEthereumAbiFunctionCreateWithString>(
+        'TWEthereumAbiFunctionCreateWithString');
+    return _TWEthereumAbiFunctionCreateWithString(
+      name,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionCreateWithString
+      _TWEthereumAbiFunctionCreateWithString;
+
+  /// /// Deletes a function object created with a 'TWEthereumAbiFunctionCreateWithString' method.
+  void TWEthereumAbiFunctionDelete(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+  ) {
+    _TWEthereumAbiFunctionDelete ??= _dylib.lookupFunction<
+        _c_TWEthereumAbiFunctionDelete,
+        _dart_TWEthereumAbiFunctionDelete>('TWEthereumAbiFunctionDelete');
+    return _TWEthereumAbiFunctionDelete(
+      fn,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionDelete _TWEthereumAbiFunctionDelete;
+
+  /// /// Return the function type signature, of the form "baz(int32,uint256)"
+  ffi.Pointer<ffi.Void> TWEthereumAbiFunctionGetType(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+  ) {
+    _TWEthereumAbiFunctionGetType ??= _dylib.lookupFunction<
+        _c_TWEthereumAbiFunctionGetType,
+        _dart_TWEthereumAbiFunctionGetType>('TWEthereumAbiFunctionGetType');
+    return _TWEthereumAbiFunctionGetType(
+      fn,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionGetType _TWEthereumAbiFunctionGetType;
+
+  /// /// Methods for adding parameters of the given type (input or output).
+  /// /// For output parameters (isOutput=true) a value has to be specified, although usually not needd.
+  /// /// Returns the index of the parameter (0-based).
+  int TWEthereumAbiFunctionAddParamUInt8(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamUInt8 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamUInt8,
+            _dart_TWEthereumAbiFunctionAddParamUInt8>(
+        'TWEthereumAbiFunctionAddParamUInt8');
+    return _TWEthereumAbiFunctionAddParamUInt8(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamUInt8 _TWEthereumAbiFunctionAddParamUInt8;
+
+  int TWEthereumAbiFunctionAddParamUInt16(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamUInt16 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamUInt16,
+            _dart_TWEthereumAbiFunctionAddParamUInt16>(
+        'TWEthereumAbiFunctionAddParamUInt16');
+    return _TWEthereumAbiFunctionAddParamUInt16(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamUInt16
+      _TWEthereumAbiFunctionAddParamUInt16;
+
+  int TWEthereumAbiFunctionAddParamUInt32(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamUInt32 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamUInt32,
+            _dart_TWEthereumAbiFunctionAddParamUInt32>(
+        'TWEthereumAbiFunctionAddParamUInt32');
+    return _TWEthereumAbiFunctionAddParamUInt32(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamUInt32
+      _TWEthereumAbiFunctionAddParamUInt32;
+
+  int TWEthereumAbiFunctionAddParamUInt64(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamUInt64 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamUInt64,
+            _dart_TWEthereumAbiFunctionAddParamUInt64>(
+        'TWEthereumAbiFunctionAddParamUInt64');
+    return _TWEthereumAbiFunctionAddParamUInt64(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamUInt64
+      _TWEthereumAbiFunctionAddParamUInt64;
+
+  int TWEthereumAbiFunctionAddParamUInt256(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    ffi.Pointer<ffi.Void> val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamUInt256 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamUInt256,
+            _dart_TWEthereumAbiFunctionAddParamUInt256>(
+        'TWEthereumAbiFunctionAddParamUInt256');
+    return _TWEthereumAbiFunctionAddParamUInt256(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamUInt256
+      _TWEthereumAbiFunctionAddParamUInt256;
+
+  int TWEthereumAbiFunctionAddParamUIntN(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int bits,
+    ffi.Pointer<ffi.Void> val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamUIntN ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamUIntN,
+            _dart_TWEthereumAbiFunctionAddParamUIntN>(
+        'TWEthereumAbiFunctionAddParamUIntN');
+    return _TWEthereumAbiFunctionAddParamUIntN(
+      fn,
+      bits,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamUIntN _TWEthereumAbiFunctionAddParamUIntN;
+
+  int TWEthereumAbiFunctionAddParamInt8(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamInt8 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamInt8,
+            _dart_TWEthereumAbiFunctionAddParamInt8>(
+        'TWEthereumAbiFunctionAddParamInt8');
+    return _TWEthereumAbiFunctionAddParamInt8(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamInt8 _TWEthereumAbiFunctionAddParamInt8;
+
+  int TWEthereumAbiFunctionAddParamInt16(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamInt16 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamInt16,
+            _dart_TWEthereumAbiFunctionAddParamInt16>(
+        'TWEthereumAbiFunctionAddParamInt16');
+    return _TWEthereumAbiFunctionAddParamInt16(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamInt16 _TWEthereumAbiFunctionAddParamInt16;
+
+  int TWEthereumAbiFunctionAddParamInt32(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamInt32 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamInt32,
+            _dart_TWEthereumAbiFunctionAddParamInt32>(
+        'TWEthereumAbiFunctionAddParamInt32');
+    return _TWEthereumAbiFunctionAddParamInt32(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamInt32 _TWEthereumAbiFunctionAddParamInt32;
+
+  int TWEthereumAbiFunctionAddParamInt64(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamInt64 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamInt64,
+            _dart_TWEthereumAbiFunctionAddParamInt64>(
+        'TWEthereumAbiFunctionAddParamInt64');
+    return _TWEthereumAbiFunctionAddParamInt64(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamInt64 _TWEthereumAbiFunctionAddParamInt64;
+
+  int TWEthereumAbiFunctionAddParamInt256(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    ffi.Pointer<ffi.Void> val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamInt256 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamInt256,
+            _dart_TWEthereumAbiFunctionAddParamInt256>(
+        'TWEthereumAbiFunctionAddParamInt256');
+    return _TWEthereumAbiFunctionAddParamInt256(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamInt256
+      _TWEthereumAbiFunctionAddParamInt256;
+
+  int TWEthereumAbiFunctionAddParamIntN(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int bits,
+    ffi.Pointer<ffi.Void> val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamIntN ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamIntN,
+            _dart_TWEthereumAbiFunctionAddParamIntN>(
+        'TWEthereumAbiFunctionAddParamIntN');
+    return _TWEthereumAbiFunctionAddParamIntN(
+      fn,
+      bits,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamIntN _TWEthereumAbiFunctionAddParamIntN;
+
+  int TWEthereumAbiFunctionAddParamBool(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamBool ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamBool,
+            _dart_TWEthereumAbiFunctionAddParamBool>(
+        'TWEthereumAbiFunctionAddParamBool');
+    return _TWEthereumAbiFunctionAddParamBool(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamBool _TWEthereumAbiFunctionAddParamBool;
+
+  int TWEthereumAbiFunctionAddParamString(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    ffi.Pointer<ffi.Void> val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamString ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamString,
+            _dart_TWEthereumAbiFunctionAddParamString>(
+        'TWEthereumAbiFunctionAddParamString');
+    return _TWEthereumAbiFunctionAddParamString(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamString
+      _TWEthereumAbiFunctionAddParamString;
+
+  int TWEthereumAbiFunctionAddParamAddress(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    ffi.Pointer<ffi.Void> val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamAddress ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamAddress,
+            _dart_TWEthereumAbiFunctionAddParamAddress>(
+        'TWEthereumAbiFunctionAddParamAddress');
+    return _TWEthereumAbiFunctionAddParamAddress(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamAddress
+      _TWEthereumAbiFunctionAddParamAddress;
+
+  int TWEthereumAbiFunctionAddParamBytes(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    ffi.Pointer<ffi.Void> val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamBytes ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamBytes,
+            _dart_TWEthereumAbiFunctionAddParamBytes>(
+        'TWEthereumAbiFunctionAddParamBytes');
+    return _TWEthereumAbiFunctionAddParamBytes(
+      fn,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamBytes _TWEthereumAbiFunctionAddParamBytes;
+
+  int TWEthereumAbiFunctionAddParamBytesFix(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int size,
+    ffi.Pointer<ffi.Void> val,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamBytesFix ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamBytesFix,
+            _dart_TWEthereumAbiFunctionAddParamBytesFix>(
+        'TWEthereumAbiFunctionAddParamBytesFix');
+    return _TWEthereumAbiFunctionAddParamBytesFix(
+      fn,
+      size,
+      val,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamBytesFix
+      _TWEthereumAbiFunctionAddParamBytesFix;
+
+  int TWEthereumAbiFunctionAddParamArray(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionAddParamArray ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddParamArray,
+            _dart_TWEthereumAbiFunctionAddParamArray>(
+        'TWEthereumAbiFunctionAddParamArray');
+    return _TWEthereumAbiFunctionAddParamArray(
+      fn,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddParamArray _TWEthereumAbiFunctionAddParamArray;
+
+  /// /// Methods for accessing the value of an output or input parameter, of different types.
+  int TWEthereumAbiFunctionGetParamUInt8(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int idx,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionGetParamUInt8 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionGetParamUInt8,
+            _dart_TWEthereumAbiFunctionGetParamUInt8>(
+        'TWEthereumAbiFunctionGetParamUInt8');
+    return _TWEthereumAbiFunctionGetParamUInt8(
+      fn,
+      idx,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionGetParamUInt8 _TWEthereumAbiFunctionGetParamUInt8;
+
+  int TWEthereumAbiFunctionGetParamUInt64(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int idx,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionGetParamUInt64 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionGetParamUInt64,
+            _dart_TWEthereumAbiFunctionGetParamUInt64>(
+        'TWEthereumAbiFunctionGetParamUInt64');
+    return _TWEthereumAbiFunctionGetParamUInt64(
+      fn,
+      idx,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionGetParamUInt64
+      _TWEthereumAbiFunctionGetParamUInt64;
+
+  ffi.Pointer<ffi.Void> TWEthereumAbiFunctionGetParamUInt256(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int idx,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionGetParamUInt256 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionGetParamUInt256,
+            _dart_TWEthereumAbiFunctionGetParamUInt256>(
+        'TWEthereumAbiFunctionGetParamUInt256');
+    return _TWEthereumAbiFunctionGetParamUInt256(
+      fn,
+      idx,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionGetParamUInt256
+      _TWEthereumAbiFunctionGetParamUInt256;
+
+  int TWEthereumAbiFunctionGetParamBool(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int idx,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionGetParamBool ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionGetParamBool,
+            _dart_TWEthereumAbiFunctionGetParamBool>(
+        'TWEthereumAbiFunctionGetParamBool');
+    return _TWEthereumAbiFunctionGetParamBool(
+      fn,
+      idx,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionGetParamBool _TWEthereumAbiFunctionGetParamBool;
+
+  ffi.Pointer<ffi.Void> TWEthereumAbiFunctionGetParamString(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int idx,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionGetParamString ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionGetParamString,
+            _dart_TWEthereumAbiFunctionGetParamString>(
+        'TWEthereumAbiFunctionGetParamString');
+    return _TWEthereumAbiFunctionGetParamString(
+      fn,
+      idx,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionGetParamString
+      _TWEthereumAbiFunctionGetParamString;
+
+  ffi.Pointer<ffi.Void> TWEthereumAbiFunctionGetParamAddress(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int idx,
+    int isOutput,
+  ) {
+    _TWEthereumAbiFunctionGetParamAddress ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionGetParamAddress,
+            _dart_TWEthereumAbiFunctionGetParamAddress>(
+        'TWEthereumAbiFunctionGetParamAddress');
+    return _TWEthereumAbiFunctionGetParamAddress(
+      fn,
+      idx,
+      isOutput,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionGetParamAddress
+      _TWEthereumAbiFunctionGetParamAddress;
+
+  /// /// Methods for adding a parameter of the given type to a top-level input parameter array.  Returns the index of the parameter (0-based).
+  /// /// Note that nested ParamArrays are not possible through this API, could be done by using index paths like "1/0"
+  int TWEthereumAbiFunctionAddInArrayParamUInt8(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    int val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamUInt8 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamUInt8,
+            _dart_TWEthereumAbiFunctionAddInArrayParamUInt8>(
+        'TWEthereumAbiFunctionAddInArrayParamUInt8');
+    return _TWEthereumAbiFunctionAddInArrayParamUInt8(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamUInt8
+      _TWEthereumAbiFunctionAddInArrayParamUInt8;
+
+  int TWEthereumAbiFunctionAddInArrayParamUInt16(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    int val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamUInt16 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamUInt16,
+            _dart_TWEthereumAbiFunctionAddInArrayParamUInt16>(
+        'TWEthereumAbiFunctionAddInArrayParamUInt16');
+    return _TWEthereumAbiFunctionAddInArrayParamUInt16(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamUInt16
+      _TWEthereumAbiFunctionAddInArrayParamUInt16;
+
+  int TWEthereumAbiFunctionAddInArrayParamUInt32(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    int val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamUInt32 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamUInt32,
+            _dart_TWEthereumAbiFunctionAddInArrayParamUInt32>(
+        'TWEthereumAbiFunctionAddInArrayParamUInt32');
+    return _TWEthereumAbiFunctionAddInArrayParamUInt32(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamUInt32
+      _TWEthereumAbiFunctionAddInArrayParamUInt32;
+
+  int TWEthereumAbiFunctionAddInArrayParamUInt64(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    int val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamUInt64 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamUInt64,
+            _dart_TWEthereumAbiFunctionAddInArrayParamUInt64>(
+        'TWEthereumAbiFunctionAddInArrayParamUInt64');
+    return _TWEthereumAbiFunctionAddInArrayParamUInt64(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamUInt64
+      _TWEthereumAbiFunctionAddInArrayParamUInt64;
+
+  int TWEthereumAbiFunctionAddInArrayParamUInt256(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    ffi.Pointer<ffi.Void> val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamUInt256 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamUInt256,
+            _dart_TWEthereumAbiFunctionAddInArrayParamUInt256>(
+        'TWEthereumAbiFunctionAddInArrayParamUInt256');
+    return _TWEthereumAbiFunctionAddInArrayParamUInt256(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamUInt256
+      _TWEthereumAbiFunctionAddInArrayParamUInt256;
+
+  int TWEthereumAbiFunctionAddInArrayParamUIntN(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    int bits,
+    ffi.Pointer<ffi.Void> val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamUIntN ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamUIntN,
+            _dart_TWEthereumAbiFunctionAddInArrayParamUIntN>(
+        'TWEthereumAbiFunctionAddInArrayParamUIntN');
+    return _TWEthereumAbiFunctionAddInArrayParamUIntN(
+      fn,
+      arrayIdx,
+      bits,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamUIntN
+      _TWEthereumAbiFunctionAddInArrayParamUIntN;
+
+  int TWEthereumAbiFunctionAddInArrayParamInt8(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    int val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamInt8 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamInt8,
+            _dart_TWEthereumAbiFunctionAddInArrayParamInt8>(
+        'TWEthereumAbiFunctionAddInArrayParamInt8');
+    return _TWEthereumAbiFunctionAddInArrayParamInt8(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamInt8
+      _TWEthereumAbiFunctionAddInArrayParamInt8;
+
+  int TWEthereumAbiFunctionAddInArrayParamInt16(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    int val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamInt16 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamInt16,
+            _dart_TWEthereumAbiFunctionAddInArrayParamInt16>(
+        'TWEthereumAbiFunctionAddInArrayParamInt16');
+    return _TWEthereumAbiFunctionAddInArrayParamInt16(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamInt16
+      _TWEthereumAbiFunctionAddInArrayParamInt16;
+
+  int TWEthereumAbiFunctionAddInArrayParamInt32(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    int val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamInt32 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamInt32,
+            _dart_TWEthereumAbiFunctionAddInArrayParamInt32>(
+        'TWEthereumAbiFunctionAddInArrayParamInt32');
+    return _TWEthereumAbiFunctionAddInArrayParamInt32(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamInt32
+      _TWEthereumAbiFunctionAddInArrayParamInt32;
+
+  int TWEthereumAbiFunctionAddInArrayParamInt64(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    int val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamInt64 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamInt64,
+            _dart_TWEthereumAbiFunctionAddInArrayParamInt64>(
+        'TWEthereumAbiFunctionAddInArrayParamInt64');
+    return _TWEthereumAbiFunctionAddInArrayParamInt64(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamInt64
+      _TWEthereumAbiFunctionAddInArrayParamInt64;
+
+  int TWEthereumAbiFunctionAddInArrayParamInt256(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    ffi.Pointer<ffi.Void> val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamInt256 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamInt256,
+            _dart_TWEthereumAbiFunctionAddInArrayParamInt256>(
+        'TWEthereumAbiFunctionAddInArrayParamInt256');
+    return _TWEthereumAbiFunctionAddInArrayParamInt256(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamInt256
+      _TWEthereumAbiFunctionAddInArrayParamInt256;
+
+  int TWEthereumAbiFunctionAddInArrayParamIntN(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    int bits,
+    ffi.Pointer<ffi.Void> val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamIntN ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamIntN,
+            _dart_TWEthereumAbiFunctionAddInArrayParamIntN>(
+        'TWEthereumAbiFunctionAddInArrayParamIntN');
+    return _TWEthereumAbiFunctionAddInArrayParamIntN(
+      fn,
+      arrayIdx,
+      bits,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamIntN
+      _TWEthereumAbiFunctionAddInArrayParamIntN;
+
+  int TWEthereumAbiFunctionAddInArrayParamBool(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    int val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamBool ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamBool,
+            _dart_TWEthereumAbiFunctionAddInArrayParamBool>(
+        'TWEthereumAbiFunctionAddInArrayParamBool');
+    return _TWEthereumAbiFunctionAddInArrayParamBool(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamBool
+      _TWEthereumAbiFunctionAddInArrayParamBool;
+
+  int TWEthereumAbiFunctionAddInArrayParamString(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    ffi.Pointer<ffi.Void> val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamString ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamString,
+            _dart_TWEthereumAbiFunctionAddInArrayParamString>(
+        'TWEthereumAbiFunctionAddInArrayParamString');
+    return _TWEthereumAbiFunctionAddInArrayParamString(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamString
+      _TWEthereumAbiFunctionAddInArrayParamString;
+
+  int TWEthereumAbiFunctionAddInArrayParamAddress(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    ffi.Pointer<ffi.Void> val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamAddress ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamAddress,
+            _dart_TWEthereumAbiFunctionAddInArrayParamAddress>(
+        'TWEthereumAbiFunctionAddInArrayParamAddress');
+    return _TWEthereumAbiFunctionAddInArrayParamAddress(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamAddress
+      _TWEthereumAbiFunctionAddInArrayParamAddress;
+
+  int TWEthereumAbiFunctionAddInArrayParamBytes(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    ffi.Pointer<ffi.Void> val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamBytes ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamBytes,
+            _dart_TWEthereumAbiFunctionAddInArrayParamBytes>(
+        'TWEthereumAbiFunctionAddInArrayParamBytes');
+    return _TWEthereumAbiFunctionAddInArrayParamBytes(
+      fn,
+      arrayIdx,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamBytes
+      _TWEthereumAbiFunctionAddInArrayParamBytes;
+
+  int TWEthereumAbiFunctionAddInArrayParamBytesFix(
+    ffi.Pointer<TWEthereumAbiFunction> fn,
+    int arrayIdx,
+    int size,
+    ffi.Pointer<ffi.Void> val,
+  ) {
+    _TWEthereumAbiFunctionAddInArrayParamBytesFix ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiFunctionAddInArrayParamBytesFix,
+            _dart_TWEthereumAbiFunctionAddInArrayParamBytesFix>(
+        'TWEthereumAbiFunctionAddInArrayParamBytesFix');
+    return _TWEthereumAbiFunctionAddInArrayParamBytesFix(
+      fn,
+      arrayIdx,
+      size,
+      val,
+    );
+  }
+
+  _dart_TWEthereumAbiFunctionAddInArrayParamBytesFix
+      _TWEthereumAbiFunctionAddInArrayParamBytesFix;
+
+  /// /// Returned data must be deleted (hint: use WRAPD() macro).
+  /// /// Encode a type according to Ethereum ABI, into 32 bytes. Values are padded by 0 on the left, unless specified otherwise.
+  ffi.Pointer<ffi.Void> TWEthereumAbiValueEncodeBool(
+    int value,
+  ) {
+    _TWEthereumAbiValueEncodeBool ??= _dylib.lookupFunction<
+        _c_TWEthereumAbiValueEncodeBool,
+        _dart_TWEthereumAbiValueEncodeBool>('TWEthereumAbiValueEncodeBool');
+    return _TWEthereumAbiValueEncodeBool(
+      value,
+    );
+  }
+
+  _dart_TWEthereumAbiValueEncodeBool _TWEthereumAbiValueEncodeBool;
+
+  ffi.Pointer<ffi.Void> TWEthereumAbiValueEncodeInt32(
+    int value,
+  ) {
+    _TWEthereumAbiValueEncodeInt32 ??= _dylib.lookupFunction<
+        _c_TWEthereumAbiValueEncodeInt32,
+        _dart_TWEthereumAbiValueEncodeInt32>('TWEthereumAbiValueEncodeInt32');
+    return _TWEthereumAbiValueEncodeInt32(
+      value,
+    );
+  }
+
+  _dart_TWEthereumAbiValueEncodeInt32 _TWEthereumAbiValueEncodeInt32;
+
+  ffi.Pointer<ffi.Void> TWEthereumAbiValueEncodeUInt32(
+    int value,
+  ) {
+    _TWEthereumAbiValueEncodeUInt32 ??= _dylib.lookupFunction<
+        _c_TWEthereumAbiValueEncodeUInt32,
+        _dart_TWEthereumAbiValueEncodeUInt32>('TWEthereumAbiValueEncodeUInt32');
+    return _TWEthereumAbiValueEncodeUInt32(
+      value,
+    );
+  }
+
+  _dart_TWEthereumAbiValueEncodeUInt32 _TWEthereumAbiValueEncodeUInt32;
+
+  /// /// Encode an int256.  Input value is represented as a 32-byte value
+  ffi.Pointer<ffi.Void> TWEthereumAbiValueEncodeInt256(
+    ffi.Pointer<ffi.Void> value,
+  ) {
+    _TWEthereumAbiValueEncodeInt256 ??= _dylib.lookupFunction<
+        _c_TWEthereumAbiValueEncodeInt256,
+        _dart_TWEthereumAbiValueEncodeInt256>('TWEthereumAbiValueEncodeInt256');
+    return _TWEthereumAbiValueEncodeInt256(
+      value,
+    );
+  }
+
+  _dart_TWEthereumAbiValueEncodeInt256 _TWEthereumAbiValueEncodeInt256;
+
+  /// /// Encode an uint256.  Input value is represented as a 32-byte binary value
+  ffi.Pointer<ffi.Void> TWEthereumAbiValueEncodeUInt256(
+    ffi.Pointer<ffi.Void> value,
+  ) {
+    _TWEthereumAbiValueEncodeUInt256 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiValueEncodeUInt256,
+            _dart_TWEthereumAbiValueEncodeUInt256>(
+        'TWEthereumAbiValueEncodeUInt256');
+    return _TWEthereumAbiValueEncodeUInt256(
+      value,
+    );
+  }
+
+  _dart_TWEthereumAbiValueEncodeUInt256 _TWEthereumAbiValueEncodeUInt256;
+
+  /// /// Encode the 20 bytes of an address
+  ffi.Pointer<ffi.Void> TWEthereumAbiValueEncodeAddress(
+    ffi.Pointer<ffi.Void> value,
+  ) {
+    _TWEthereumAbiValueEncodeAddress ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiValueEncodeAddress,
+            _dart_TWEthereumAbiValueEncodeAddress>(
+        'TWEthereumAbiValueEncodeAddress');
+    return _TWEthereumAbiValueEncodeAddress(
+      value,
+    );
+  }
+
+  _dart_TWEthereumAbiValueEncodeAddress _TWEthereumAbiValueEncodeAddress;
+
+  /// /// Encode a string by encoding its hash
+  ffi.Pointer<ffi.Void> TWEthereumAbiValueEncodeString(
+    ffi.Pointer<ffi.Void> value,
+  ) {
+    _TWEthereumAbiValueEncodeString ??= _dylib.lookupFunction<
+        _c_TWEthereumAbiValueEncodeString,
+        _dart_TWEthereumAbiValueEncodeString>('TWEthereumAbiValueEncodeString');
+    return _TWEthereumAbiValueEncodeString(
+      value,
+    );
+  }
+
+  _dart_TWEthereumAbiValueEncodeString _TWEthereumAbiValueEncodeString;
+
+  /// /// Encode a number of bytes, up to 32 bytes, padded on the right.  Longer arrays are truncated.
+  ffi.Pointer<ffi.Void> TWEthereumAbiValueEncodeBytes(
+    ffi.Pointer<ffi.Void> value,
+  ) {
+    _TWEthereumAbiValueEncodeBytes ??= _dylib.lookupFunction<
+        _c_TWEthereumAbiValueEncodeBytes,
+        _dart_TWEthereumAbiValueEncodeBytes>('TWEthereumAbiValueEncodeBytes');
+    return _TWEthereumAbiValueEncodeBytes(
+      value,
+    );
+  }
+
+  _dart_TWEthereumAbiValueEncodeBytes _TWEthereumAbiValueEncodeBytes;
+
+  /// /// Encode a dynamic number of bytes by encoding its hash
+  ffi.Pointer<ffi.Void> TWEthereumAbiValueEncodeBytesDyn(
+    ffi.Pointer<ffi.Void> value,
+  ) {
+    _TWEthereumAbiValueEncodeBytesDyn ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiValueEncodeBytesDyn,
+            _dart_TWEthereumAbiValueEncodeBytesDyn>(
+        'TWEthereumAbiValueEncodeBytesDyn');
+    return _TWEthereumAbiValueEncodeBytesDyn(
+      value,
+    );
+  }
+
+  _dart_TWEthereumAbiValueEncodeBytesDyn _TWEthereumAbiValueEncodeBytesDyn;
+
+  /// /// Decodes input data (bytes longer than 32 will be truncated) as uint256
+  ffi.Pointer<ffi.Void> TWEthereumAbiValueDecodeUInt256(
+    ffi.Pointer<ffi.Void> input,
+  ) {
+    _TWEthereumAbiValueDecodeUInt256 ??= _dylib.lookupFunction<
+            _c_TWEthereumAbiValueDecodeUInt256,
+            _dart_TWEthereumAbiValueDecodeUInt256>(
+        'TWEthereumAbiValueDecodeUInt256');
+    return _TWEthereumAbiValueDecodeUInt256(
+      input,
+    );
+  }
+
+  _dart_TWEthereumAbiValueDecodeUInt256 _TWEthereumAbiValueDecodeUInt256;
+
+  /// /// Decode an arbitrary type, return value as string
+  ffi.Pointer<ffi.Void> TWEthereumAbiValueDecodeValue(
+    ffi.Pointer<ffi.Void> input,
+    ffi.Pointer<ffi.Void> type,
+  ) {
+    _TWEthereumAbiValueDecodeValue ??= _dylib.lookupFunction<
+        _c_TWEthereumAbiValueDecodeValue,
+        _dart_TWEthereumAbiValueDecodeValue>('TWEthereumAbiValueDecodeValue');
+    return _TWEthereumAbiValueDecodeValue(
+      input,
+      type,
+    );
+  }
+
+  _dart_TWEthereumAbiValueDecodeValue _TWEthereumAbiValueDecodeValue;
+
+  /// /// Decode an array of given simple types.  Return a '\n'-separated string of elements
+  ffi.Pointer<ffi.Void> TWEthereumAbiValueDecodeArray(
+    ffi.Pointer<ffi.Void> input,
+    ffi.Pointer<ffi.Void> type,
+  ) {
+    _TWEthereumAbiValueDecodeArray ??= _dylib.lookupFunction<
+        _c_TWEthereumAbiValueDecodeArray,
+        _dart_TWEthereumAbiValueDecodeArray>('TWEthereumAbiValueDecodeArray');
+    return _TWEthereumAbiValueDecodeArray(
+      input,
+      type,
+    );
+  }
+
+  _dart_TWEthereumAbiValueDecodeArray _TWEthereumAbiValueDecodeArray;
+
+  ffi.Pointer<TWFIOAccount> TWFIOAccountCreateWithString(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWFIOAccountCreateWithString ??= _dylib.lookupFunction<
+        _c_TWFIOAccountCreateWithString,
+        _dart_TWFIOAccountCreateWithString>('TWFIOAccountCreateWithString');
+    return _TWFIOAccountCreateWithString(
+      string,
+    );
+  }
+
+  _dart_TWFIOAccountCreateWithString _TWFIOAccountCreateWithString;
+
+  void TWFIOAccountDelete(
+    ffi.Pointer<TWFIOAccount> account,
+  ) {
+    _TWFIOAccountDelete ??=
+        _dylib.lookupFunction<_c_TWFIOAccountDelete, _dart_TWFIOAccountDelete>(
+            'TWFIOAccountDelete');
+    return _TWFIOAccountDelete(
+      account,
+    );
+  }
+
+  _dart_TWFIOAccountDelete _TWFIOAccountDelete;
+
+  /// /// Returns the short account string representation.
+  ffi.Pointer<ffi.Void> TWFIOAccountDescription(
+    ffi.Pointer<TWFIOAccount> account,
+  ) {
+    _TWFIOAccountDescription ??= _dylib.lookupFunction<
+        _c_TWFIOAccountDescription,
+        _dart_TWFIOAccountDescription>('TWFIOAccountDescription');
+    return _TWFIOAccountDescription(
+      account,
+    );
+  }
+
+  _dart_TWFIOAccountDescription _TWFIOAccountDescription;
+
+  /// /// Compares two addresses for equality.
+  int TWGroestlcoinAddressEqual(
+    ffi.Pointer<TWGroestlcoinAddress> lhs,
+    ffi.Pointer<TWGroestlcoinAddress> rhs,
+  ) {
+    _TWGroestlcoinAddressEqual ??= _dylib.lookupFunction<
+        _c_TWGroestlcoinAddressEqual,
+        _dart_TWGroestlcoinAddressEqual>('TWGroestlcoinAddressEqual');
+    return _TWGroestlcoinAddressEqual(
+      lhs,
+      rhs,
+    );
+  }
+
+  _dart_TWGroestlcoinAddressEqual _TWGroestlcoinAddressEqual;
+
+  /// /// Determines if the string is a valid Groestlcoin address.
+  int TWGroestlcoinAddressIsValidString(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWGroestlcoinAddressIsValidString ??= _dylib.lookupFunction<
+            _c_TWGroestlcoinAddressIsValidString,
+            _dart_TWGroestlcoinAddressIsValidString>(
+        'TWGroestlcoinAddressIsValidString');
+    return _TWGroestlcoinAddressIsValidString(
+      string,
+    );
+  }
+
+  _dart_TWGroestlcoinAddressIsValidString _TWGroestlcoinAddressIsValidString;
+
+  /// /// Create an address from a base58 sring representaion.
+  ffi.Pointer<TWGroestlcoinAddress> TWGroestlcoinAddressCreateWithString(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWGroestlcoinAddressCreateWithString ??= _dylib.lookupFunction<
+            _c_TWGroestlcoinAddressCreateWithString,
+            _dart_TWGroestlcoinAddressCreateWithString>(
+        'TWGroestlcoinAddressCreateWithString');
+    return _TWGroestlcoinAddressCreateWithString(
+      string,
+    );
+  }
+
+  _dart_TWGroestlcoinAddressCreateWithString
+      _TWGroestlcoinAddressCreateWithString;
+
+  /// /// Create an address from a public key and a prefix byte.
+  ffi.Pointer<TWGroestlcoinAddress> TWGroestlcoinAddressCreateWithPublicKey(
+    ffi.Pointer<TWPublicKey> publicKey,
+    int prefix,
+  ) {
+    _TWGroestlcoinAddressCreateWithPublicKey ??= _dylib.lookupFunction<
+            _c_TWGroestlcoinAddressCreateWithPublicKey,
+            _dart_TWGroestlcoinAddressCreateWithPublicKey>(
+        'TWGroestlcoinAddressCreateWithPublicKey');
+    return _TWGroestlcoinAddressCreateWithPublicKey(
+      publicKey,
+      prefix,
+    );
+  }
+
+  _dart_TWGroestlcoinAddressCreateWithPublicKey
+      _TWGroestlcoinAddressCreateWithPublicKey;
+
+  void TWGroestlcoinAddressDelete(
+    ffi.Pointer<TWGroestlcoinAddress> address,
+  ) {
+    _TWGroestlcoinAddressDelete ??= _dylib.lookupFunction<
+        _c_TWGroestlcoinAddressDelete,
+        _dart_TWGroestlcoinAddressDelete>('TWGroestlcoinAddressDelete');
+    return _TWGroestlcoinAddressDelete(
+      address,
+    );
+  }
+
+  _dart_TWGroestlcoinAddressDelete _TWGroestlcoinAddressDelete;
+
+  /// /// Returns the address base58 string representation.
+  ffi.Pointer<ffi.Void> TWGroestlcoinAddressDescription(
+    ffi.Pointer<TWGroestlcoinAddress> address,
+  ) {
+    _TWGroestlcoinAddressDescription ??= _dylib.lookupFunction<
+            _c_TWGroestlcoinAddressDescription,
+            _dart_TWGroestlcoinAddressDescription>(
+        'TWGroestlcoinAddressDescription');
+    return _TWGroestlcoinAddressDescription(
+      address,
+    );
+  }
+
+  _dart_TWGroestlcoinAddressDescription _TWGroestlcoinAddressDescription;
+
+  /// /// Computes the SHA1 of a block of data.
+  ffi.Pointer<ffi.Void> TWHashSHA1(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashSHA1 ??=
+        _dylib.lookupFunction<_c_TWHashSHA1, _dart_TWHashSHA1>('TWHashSHA1');
+    return _TWHashSHA1(
+      data,
+    );
+  }
+
+  _dart_TWHashSHA1 _TWHashSHA1;
+
+  ffi.Pointer<ffi.Void> TWHashSHA256(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashSHA256 ??= _dylib
+        .lookupFunction<_c_TWHashSHA256, _dart_TWHashSHA256>('TWHashSHA256');
+    return _TWHashSHA256(
+      data,
+    );
+  }
+
+  _dart_TWHashSHA256 _TWHashSHA256;
+
+  ffi.Pointer<ffi.Void> TWHashSHA512(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashSHA512 ??= _dylib
+        .lookupFunction<_c_TWHashSHA512, _dart_TWHashSHA512>('TWHashSHA512');
+    return _TWHashSHA512(
+      data,
+    );
+  }
+
+  _dart_TWHashSHA512 _TWHashSHA512;
+
+  ffi.Pointer<ffi.Void> TWHashSHA512_256(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashSHA512_256 ??=
+        _dylib.lookupFunction<_c_TWHashSHA512_256, _dart_TWHashSHA512_256>(
+            'TWHashSHA512_256');
+    return _TWHashSHA512_256(
+      data,
+    );
+  }
+
+  _dart_TWHashSHA512_256 _TWHashSHA512_256;
+
+  ffi.Pointer<ffi.Void> TWHashKeccak256(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashKeccak256 ??=
+        _dylib.lookupFunction<_c_TWHashKeccak256, _dart_TWHashKeccak256>(
+            'TWHashKeccak256');
+    return _TWHashKeccak256(
+      data,
+    );
+  }
+
+  _dart_TWHashKeccak256 _TWHashKeccak256;
+
+  ffi.Pointer<ffi.Void> TWHashKeccak512(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashKeccak512 ??=
+        _dylib.lookupFunction<_c_TWHashKeccak512, _dart_TWHashKeccak512>(
+            'TWHashKeccak512');
+    return _TWHashKeccak512(
+      data,
+    );
+  }
+
+  _dart_TWHashKeccak512 _TWHashKeccak512;
+
+  ffi.Pointer<ffi.Void> TWHashSHA3_256(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashSHA3_256 ??=
+        _dylib.lookupFunction<_c_TWHashSHA3_256, _dart_TWHashSHA3_256>(
+            'TWHashSHA3_256');
+    return _TWHashSHA3_256(
+      data,
+    );
+  }
+
+  _dart_TWHashSHA3_256 _TWHashSHA3_256;
+
+  ffi.Pointer<ffi.Void> TWHashSHA3_512(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashSHA3_512 ??=
+        _dylib.lookupFunction<_c_TWHashSHA3_512, _dart_TWHashSHA3_512>(
+            'TWHashSHA3_512');
+    return _TWHashSHA3_512(
+      data,
+    );
+  }
+
+  _dart_TWHashSHA3_512 _TWHashSHA3_512;
+
+  ffi.Pointer<ffi.Void> TWHashRIPEMD(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashRIPEMD ??= _dylib
+        .lookupFunction<_c_TWHashRIPEMD, _dart_TWHashRIPEMD>('TWHashRIPEMD');
+    return _TWHashRIPEMD(
+      data,
+    );
+  }
+
+  _dart_TWHashRIPEMD _TWHashRIPEMD;
+
+  ffi.Pointer<ffi.Void> TWHashBlake256(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashBlake256 ??=
+        _dylib.lookupFunction<_c_TWHashBlake256, _dart_TWHashBlake256>(
+            'TWHashBlake256');
+    return _TWHashBlake256(
+      data,
+    );
+  }
+
+  _dart_TWHashBlake256 _TWHashBlake256;
+
+  ffi.Pointer<ffi.Void> TWHashBlake2b(
+    ffi.Pointer<ffi.Void> data,
+    int size,
+  ) {
+    _TWHashBlake2b ??= _dylib
+        .lookupFunction<_c_TWHashBlake2b, _dart_TWHashBlake2b>('TWHashBlake2b');
+    return _TWHashBlake2b(
+      data,
+      size,
+    );
+  }
+
+  _dart_TWHashBlake2b _TWHashBlake2b;
+
+  ffi.Pointer<ffi.Void> TWHashGroestl512(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashGroestl512 ??=
+        _dylib.lookupFunction<_c_TWHashGroestl512, _dart_TWHashGroestl512>(
+            'TWHashGroestl512');
+    return _TWHashGroestl512(
+      data,
+    );
+  }
+
+  _dart_TWHashGroestl512 _TWHashGroestl512;
+
+  ffi.Pointer<ffi.Void> TWHashXXHash64(
+    ffi.Pointer<ffi.Void> data,
+    int seed,
+  ) {
+    _TWHashXXHash64 ??=
+        _dylib.lookupFunction<_c_TWHashXXHash64, _dart_TWHashXXHash64>(
+            'TWHashXXHash64');
+    return _TWHashXXHash64(
+      data,
+      seed,
+    );
+  }
+
+  _dart_TWHashXXHash64 _TWHashXXHash64;
+
+  ffi.Pointer<ffi.Void> TWHashTwoXXHash64Concat(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashTwoXXHash64Concat ??= _dylib.lookupFunction<
+        _c_TWHashTwoXXHash64Concat,
+        _dart_TWHashTwoXXHash64Concat>('TWHashTwoXXHash64Concat');
+    return _TWHashTwoXXHash64Concat(
+      data,
+    );
+  }
+
+  _dart_TWHashTwoXXHash64Concat _TWHashTwoXXHash64Concat;
+
+  ffi.Pointer<ffi.Void> TWHashSHA256SHA256(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashSHA256SHA256 ??=
+        _dylib.lookupFunction<_c_TWHashSHA256SHA256, _dart_TWHashSHA256SHA256>(
+            'TWHashSHA256SHA256');
+    return _TWHashSHA256SHA256(
+      data,
+    );
+  }
+
+  _dart_TWHashSHA256SHA256 _TWHashSHA256SHA256;
+
+  ffi.Pointer<ffi.Void> TWHashSHA256RIPEMD(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashSHA256RIPEMD ??=
+        _dylib.lookupFunction<_c_TWHashSHA256RIPEMD, _dart_TWHashSHA256RIPEMD>(
+            'TWHashSHA256RIPEMD');
+    return _TWHashSHA256RIPEMD(
+      data,
+    );
+  }
+
+  _dart_TWHashSHA256RIPEMD _TWHashSHA256RIPEMD;
+
+  ffi.Pointer<ffi.Void> TWHashSHA3_256RIPEMD(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashSHA3_256RIPEMD ??= _dylib.lookupFunction<_c_TWHashSHA3_256RIPEMD,
+        _dart_TWHashSHA3_256RIPEMD>('TWHashSHA3_256RIPEMD');
+    return _TWHashSHA3_256RIPEMD(
+      data,
+    );
+  }
+
+  _dart_TWHashSHA3_256RIPEMD _TWHashSHA3_256RIPEMD;
+
+  ffi.Pointer<ffi.Void> TWHashBlake256Blake256(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashBlake256Blake256 ??= _dylib.lookupFunction<_c_TWHashBlake256Blake256,
+        _dart_TWHashBlake256Blake256>('TWHashBlake256Blake256');
+    return _TWHashBlake256Blake256(
+      data,
+    );
+  }
+
+  _dart_TWHashBlake256Blake256 _TWHashBlake256Blake256;
+
+  ffi.Pointer<ffi.Void> TWHashBlake256RIPEMD(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashBlake256RIPEMD ??= _dylib.lookupFunction<_c_TWHashBlake256RIPEMD,
+        _dart_TWHashBlake256RIPEMD>('TWHashBlake256RIPEMD');
+    return _TWHashBlake256RIPEMD(
+      data,
+    );
+  }
+
+  _dart_TWHashBlake256RIPEMD _TWHashBlake256RIPEMD;
+
+  ffi.Pointer<ffi.Void> TWHashGroestl512Groestl512(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    _TWHashGroestl512Groestl512 ??= _dylib.lookupFunction<
+        _c_TWHashGroestl512Groestl512,
+        _dart_TWHashGroestl512Groestl512>('TWHashGroestl512Groestl512');
+    return _TWHashGroestl512Groestl512(
+      data,
+    );
+  }
+
+  _dart_TWHashGroestl512Groestl512 _TWHashGroestl512Groestl512;
+
   /// /// Determines if a mnemonic phrase is valid.
   int TWHDWalletIsValid(
     ffi.Pointer<ffi.Void> mnemonic,
@@ -1267,6 +3785,261 @@ class WalletCore {
   }
 
   _dart_TWHDWalletGetPublicKeyFromExtended _TWHDWalletGetPublicKeyFromExtended;
+
+  ffi.Pointer<TWNEARAccount> TWNEARAccountCreateWithString(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWNEARAccountCreateWithString ??= _dylib.lookupFunction<
+        _c_TWNEARAccountCreateWithString,
+        _dart_TWNEARAccountCreateWithString>('TWNEARAccountCreateWithString');
+    return _TWNEARAccountCreateWithString(
+      string,
+    );
+  }
+
+  _dart_TWNEARAccountCreateWithString _TWNEARAccountCreateWithString;
+
+  void TWNEARAccountDelete(
+    ffi.Pointer<TWNEARAccount> account,
+  ) {
+    _TWNEARAccountDelete ??= _dylib.lookupFunction<_c_TWNEARAccountDelete,
+        _dart_TWNEARAccountDelete>('TWNEARAccountDelete');
+    return _TWNEARAccountDelete(
+      account,
+    );
+  }
+
+  _dart_TWNEARAccountDelete _TWNEARAccountDelete;
+
+  /// /// Returns the user friendly string representation.
+  ffi.Pointer<ffi.Void> TWNEARAccountDescription(
+    ffi.Pointer<TWNEARAccount> account,
+  ) {
+    _TWNEARAccountDescription ??= _dylib.lookupFunction<
+        _c_TWNEARAccountDescription,
+        _dart_TWNEARAccountDescription>('TWNEARAccountDescription');
+    return _TWNEARAccountDescription(
+      account,
+    );
+  }
+
+  _dart_TWNEARAccountDescription _TWNEARAccountDescription;
+
+  /// /// Compares two addresses for equality.
+  int TWRippleXAddressEqual(
+    ffi.Pointer<TWRippleXAddress> lhs,
+    ffi.Pointer<TWRippleXAddress> rhs,
+  ) {
+    _TWRippleXAddressEqual ??= _dylib.lookupFunction<_c_TWRippleXAddressEqual,
+        _dart_TWRippleXAddressEqual>('TWRippleXAddressEqual');
+    return _TWRippleXAddressEqual(
+      lhs,
+      rhs,
+    );
+  }
+
+  _dart_TWRippleXAddressEqual _TWRippleXAddressEqual;
+
+  /// /// Determines if the string is a valid Ripple address.
+  int TWRippleXAddressIsValidString(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWRippleXAddressIsValidString ??= _dylib.lookupFunction<
+        _c_TWRippleXAddressIsValidString,
+        _dart_TWRippleXAddressIsValidString>('TWRippleXAddressIsValidString');
+    return _TWRippleXAddressIsValidString(
+      string,
+    );
+  }
+
+  _dart_TWRippleXAddressIsValidString _TWRippleXAddressIsValidString;
+
+  /// /// Creates an address from a string representaion.
+  ffi.Pointer<TWRippleXAddress> TWRippleXAddressCreateWithString(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWRippleXAddressCreateWithString ??= _dylib.lookupFunction<
+            _c_TWRippleXAddressCreateWithString,
+            _dart_TWRippleXAddressCreateWithString>(
+        'TWRippleXAddressCreateWithString');
+    return _TWRippleXAddressCreateWithString(
+      string,
+    );
+  }
+
+  _dart_TWRippleXAddressCreateWithString _TWRippleXAddressCreateWithString;
+
+  /// /// Creates an address from a public key and destination tag.
+  ffi.Pointer<TWRippleXAddress> TWRippleXAddressCreateWithPublicKey(
+    ffi.Pointer<TWPublicKey> publicKey,
+    int tag,
+  ) {
+    _TWRippleXAddressCreateWithPublicKey ??= _dylib.lookupFunction<
+            _c_TWRippleXAddressCreateWithPublicKey,
+            _dart_TWRippleXAddressCreateWithPublicKey>(
+        'TWRippleXAddressCreateWithPublicKey');
+    return _TWRippleXAddressCreateWithPublicKey(
+      publicKey,
+      tag,
+    );
+  }
+
+  _dart_TWRippleXAddressCreateWithPublicKey
+      _TWRippleXAddressCreateWithPublicKey;
+
+  void TWRippleXAddressDelete(
+    ffi.Pointer<TWRippleXAddress> address,
+  ) {
+    _TWRippleXAddressDelete ??= _dylib.lookupFunction<_c_TWRippleXAddressDelete,
+        _dart_TWRippleXAddressDelete>('TWRippleXAddressDelete');
+    return _TWRippleXAddressDelete(
+      address,
+    );
+  }
+
+  _dart_TWRippleXAddressDelete _TWRippleXAddressDelete;
+
+  /// /// Returns the address string representation.
+  ffi.Pointer<ffi.Void> TWRippleXAddressDescription(
+    ffi.Pointer<TWRippleXAddress> address,
+  ) {
+    _TWRippleXAddressDescription ??= _dylib.lookupFunction<
+        _c_TWRippleXAddressDescription,
+        _dart_TWRippleXAddressDescription>('TWRippleXAddressDescription');
+    return _TWRippleXAddressDescription(
+      address,
+    );
+  }
+
+  _dart_TWRippleXAddressDescription _TWRippleXAddressDescription;
+
+  /// /// Returns the destination tag.
+  int TWRippleXAddressTag(
+    ffi.Pointer<TWRippleXAddress> address,
+  ) {
+    _TWRippleXAddressTag ??= _dylib.lookupFunction<_c_TWRippleXAddressTag,
+        _dart_TWRippleXAddressTag>('TWRippleXAddressTag');
+    return _TWRippleXAddressTag(
+      address,
+    );
+  }
+
+  _dart_TWRippleXAddressTag _TWRippleXAddressTag;
+
+  /// /// Compares two addresses for equality.
+  int TWSegwitAddressEqual(
+    ffi.Pointer<TWSegwitAddress> lhs,
+    ffi.Pointer<TWSegwitAddress> rhs,
+  ) {
+    _TWSegwitAddressEqual ??= _dylib.lookupFunction<_c_TWSegwitAddressEqual,
+        _dart_TWSegwitAddressEqual>('TWSegwitAddressEqual');
+    return _TWSegwitAddressEqual(
+      lhs,
+      rhs,
+    );
+  }
+
+  _dart_TWSegwitAddressEqual _TWSegwitAddressEqual;
+
+  /// /// Determines if the string is a valid Bech32 address.
+  int TWSegwitAddressIsValidString(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWSegwitAddressIsValidString ??= _dylib.lookupFunction<
+        _c_TWSegwitAddressIsValidString,
+        _dart_TWSegwitAddressIsValidString>('TWSegwitAddressIsValidString');
+    return _TWSegwitAddressIsValidString(
+      string,
+    );
+  }
+
+  _dart_TWSegwitAddressIsValidString _TWSegwitAddressIsValidString;
+
+  /// /// Creates an address from a string representaion.
+  ffi.Pointer<TWSegwitAddress> TWSegwitAddressCreateWithString(
+    ffi.Pointer<ffi.Void> string,
+  ) {
+    _TWSegwitAddressCreateWithString ??= _dylib.lookupFunction<
+            _c_TWSegwitAddressCreateWithString,
+            _dart_TWSegwitAddressCreateWithString>(
+        'TWSegwitAddressCreateWithString');
+    return _TWSegwitAddressCreateWithString(
+      string,
+    );
+  }
+
+  _dart_TWSegwitAddressCreateWithString _TWSegwitAddressCreateWithString;
+
+  /// /// Creates an address from a public key.
+  ffi.Pointer<TWSegwitAddress> TWSegwitAddressCreateWithPublicKey(
+    int hrp,
+    ffi.Pointer<TWPublicKey> publicKey,
+  ) {
+    _TWSegwitAddressCreateWithPublicKey ??= _dylib.lookupFunction<
+            _c_TWSegwitAddressCreateWithPublicKey,
+            _dart_TWSegwitAddressCreateWithPublicKey>(
+        'TWSegwitAddressCreateWithPublicKey');
+    return _TWSegwitAddressCreateWithPublicKey(
+      hrp,
+      publicKey,
+    );
+  }
+
+  _dart_TWSegwitAddressCreateWithPublicKey _TWSegwitAddressCreateWithPublicKey;
+
+  void TWSegwitAddressDelete(
+    ffi.Pointer<TWSegwitAddress> address,
+  ) {
+    _TWSegwitAddressDelete ??= _dylib.lookupFunction<_c_TWSegwitAddressDelete,
+        _dart_TWSegwitAddressDelete>('TWSegwitAddressDelete');
+    return _TWSegwitAddressDelete(
+      address,
+    );
+  }
+
+  _dart_TWSegwitAddressDelete _TWSegwitAddressDelete;
+
+  /// /// Returns the address string representation.
+  ffi.Pointer<ffi.Void> TWSegwitAddressDescription(
+    ffi.Pointer<TWSegwitAddress> address,
+  ) {
+    _TWSegwitAddressDescription ??= _dylib.lookupFunction<
+        _c_TWSegwitAddressDescription,
+        _dart_TWSegwitAddressDescription>('TWSegwitAddressDescription');
+    return _TWSegwitAddressDescription(
+      address,
+    );
+  }
+
+  _dart_TWSegwitAddressDescription _TWSegwitAddressDescription;
+
+  /// /// Returns the human-readable part.
+  int TWSegwitAddressHRP(
+    ffi.Pointer<TWSegwitAddress> address,
+  ) {
+    _TWSegwitAddressHRP ??=
+        _dylib.lookupFunction<_c_TWSegwitAddressHRP, _dart_TWSegwitAddressHRP>(
+            'TWSegwitAddressHRP');
+    return _TWSegwitAddressHRP(
+      address,
+    );
+  }
+
+  _dart_TWSegwitAddressHRP _TWSegwitAddressHRP;
+
+  /// /// Returns the witness program
+  ffi.Pointer<ffi.Void> TWSegwitAddressWitnessProgram(
+    ffi.Pointer<TWSegwitAddress> address,
+  ) {
+    _TWSegwitAddressWitnessProgram ??= _dylib.lookupFunction<
+        _c_TWSegwitAddressWitnessProgram,
+        _dart_TWSegwitAddressWitnessProgram>('TWSegwitAddressWitnessProgram');
+    return _TWSegwitAddressWitnessProgram(
+      address,
+    );
+  }
+
+  _dart_TWSegwitAddressWitnessProgram _TWSegwitAddressWitnessProgram;
 
   /// /// Loads a key from a file.  Returned object needs to be deleted.
   ffi.Pointer<TWStoredKey> TWStoredKeyLoad(
@@ -1795,12 +4568,190 @@ abstract class TWCoinType {
   static const int TWCoinTypeSmartChain = 20000714;
 }
 
+/// /// Account for a particular coin within a wallet.
+class TWAccount extends ffi.Struct {}
+
+abstract class TWAESPaddingMode {
+  static const int TWAESPaddingModeZero = 0;
+  static const int TWAESPaddingModePKCS7 = 1;
+}
+
+class TWAES extends ffi.Struct {
+  @ffi.Uint8()
+  int unused;
+}
+
+/// /// Represents Any blockchain address.
+class TWAnyAddress extends ffi.Struct {}
+
+/// /// Helper class to sign any transactions.
+class TWAnySigner extends ffi.Struct {}
+
+class TWBase58 extends ffi.Struct {
+  @ffi.Uint8()
+  int unused;
+}
+
+/// /// Represents a legacy Bitcoin address.
+class TWBitcoinAddress extends ffi.Struct {}
+
+abstract class TWBitcoinSigHashType {
+  static const int TWBitcoinSigHashTypeAll = 1;
+  static const int TWBitcoinSigHashTypeNone = 2;
+  static const int TWBitcoinSigHashTypeSingle = 3;
+  static const int TWBitcoinSigHashTypeFork = 64;
+  static const int TWBitcoinSigHashTypeForkBTG = 20288;
+  static const int TWBitcoinSigHashTypeAnyoneCanPay = 128;
+}
+
+class TWBitcoinScript extends ffi.Struct {}
+
+class TWCoinTypeConfiguration extends ffi.Struct {
+  @ffi.Uint8()
+  int unused;
+}
+
+class TWEthereumAbiFunction extends ffi.Struct {}
+
+class TWEthereumAbi extends ffi.Struct {}
+
+class TWEthereumAbiValue extends ffi.Struct {}
+
+/// /// Chain identifier for Ethereum-based blockchains.
+abstract class TWEthereumChainID {
+  static const int TWEthereumChainIDEthereum = 1;
+  static const int TWEthereumChainIDGo = 60;
+  static const int TWEthereumChainIDPOA = 99;
+  static const int TWEthereumChainIDCallisto = 820;
+  static const int TWEthereumChainIDEthereumClassic = 61;
+  static const int TWEthereumChainIDVeChain = 74;
+  static const int TWEthereumChainIDThunderToken = 108;
+  static const int TWEthereumChainIDTomoChain = 88;
+  static const int TWEthereumChainIDBinanceSmartChain = 56;
+}
+
+/// /// Represents a FIO Account name
+class TWFIOAccount extends ffi.Struct {}
+
+/// /// Represents a legacy Groestlcoin address.
+class TWGroestlcoinAddress extends ffi.Struct {}
+
+class TWHash extends ffi.Struct {
+  @ffi.Uint8()
+  int unused;
+}
+
 class TWHDWallet extends ffi.Struct {}
+
+/// /// Represents a NEAR Account name
+class TWNEARAccount extends ffi.Struct {}
+
+/// /// Represents a Ripple X-address.
+class TWRippleXAddress extends ffi.Struct {}
+
+/// /// Represents a BIP 0173 address.
+class TWSegwitAddress extends ffi.Struct {}
+
+/// ///   Substrate based chains Address Type
+/// ///
+/// /// - See Also: https://github.com/paritytech/substrate/wiki/External-Address-Format-(SS58)#address-type
+abstract class TWSS58AddressType {
+  static const int TWSS58AddressTypePolkadot = 0;
+  static const int TWSS58AddressTypeKusama = 2;
+}
+
+abstract class TWStellarMemoType {
+  static const int TWStellarMemoTypeNone = 0;
+  static const int TWStellarMemoTypeText = 1;
+  static const int TWStellarMemoTypeId = 2;
+  static const int TWStellarMemoTypeHash = 3;
+  static const int TWStellarMemoTypeReturn = 4;
+}
+
+abstract class TWStellarPassphrase {
+  static const int TWStellarPassphraseStellar = 0;
+  static const int TWStellarPassphraseKin = 1;
+}
+
+abstract class TWStellarVersionByte {
+  static const int TWStellarVersionByteAccountID = 48;
+  static const int TWStellarVersionByteSeed = 192;
+  static const int TWStellarVersionBytePreAuthTX = 200;
+  static const int TWStellarVersionByteSHA256Hash = 280;
+}
 
 /// /// Represents a key stored as an encrypted file.
 class TWStoredKey extends ffi.Struct {}
 
-class TWAccount extends ffi.Struct {}
+typedef _c_TWStringCreateWithUTF8Bytes = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Int8> bytes,
+);
+
+typedef _dart_TWStringCreateWithUTF8Bytes = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Int8> bytes,
+);
+
+typedef _c_TWStringCreateWithRawBytes = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Uint8> bytes,
+  ffi.Uint64 size,
+);
+
+typedef _dart_TWStringCreateWithRawBytes = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Uint8> bytes,
+  int size,
+);
+
+typedef _c_TWStringCreateWithHexData = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWStringCreateWithHexData = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWStringSize = ffi.Uint64 Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWStringSize = int Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWStringGet = ffi.Int8 Function(
+  ffi.Pointer<ffi.Void> string,
+  ffi.Uint64 index,
+);
+
+typedef _dart_TWStringGet = int Function(
+  ffi.Pointer<ffi.Void> string,
+  int index,
+);
+
+typedef _c_TWStringUTF8Bytes = ffi.Pointer<ffi.Int8> Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWStringUTF8Bytes = ffi.Pointer<ffi.Int8> Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWStringDelete = ffi.Void Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWStringDelete = void Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWStringEqual = ffi.Int32 Function(
+  ffi.Pointer<ffi.Void> lhs,
+  ffi.Pointer<ffi.Void> rhs,
+);
+
+typedef _dart_TWStringEqual = int Function(
+  ffi.Pointer<ffi.Void> lhs,
+  ffi.Pointer<ffi.Void> rhs,
+);
 
 typedef _c_TWHDVersionIsPublic = ffi.Int32 Function(
   ffi.Int32 version,
@@ -1996,76 +4947,6 @@ typedef _c_TWDataEqual = ffi.Int32 Function(
 );
 
 typedef _dart_TWDataEqual = int Function(
-  ffi.Pointer<ffi.Void> lhs,
-  ffi.Pointer<ffi.Void> rhs,
-);
-
-typedef _c_TWStringCreateWithUTF8Bytes = ffi.Pointer<ffi.Void> Function(
-  ffi.Pointer<ffi.Int8> bytes,
-);
-
-typedef _dart_TWStringCreateWithUTF8Bytes = ffi.Pointer<ffi.Void> Function(
-  ffi.Pointer<ffi.Int8> bytes,
-);
-
-typedef _c_TWStringCreateWithRawBytes = ffi.Pointer<ffi.Void> Function(
-  ffi.Pointer<ffi.Uint8> bytes,
-  ffi.Uint64 size,
-);
-
-typedef _dart_TWStringCreateWithRawBytes = ffi.Pointer<ffi.Void> Function(
-  ffi.Pointer<ffi.Uint8> bytes,
-  int size,
-);
-
-typedef _c_TWStringCreateWithHexData = ffi.Pointer<ffi.Void> Function(
-  ffi.Pointer<ffi.Void> data,
-);
-
-typedef _dart_TWStringCreateWithHexData = ffi.Pointer<ffi.Void> Function(
-  ffi.Pointer<ffi.Void> data,
-);
-
-typedef _c_TWStringSize = ffi.Uint64 Function(
-  ffi.Pointer<ffi.Void> string,
-);
-
-typedef _dart_TWStringSize = int Function(
-  ffi.Pointer<ffi.Void> string,
-);
-
-typedef _c_TWStringGet = ffi.Int8 Function(
-  ffi.Pointer<ffi.Void> string,
-  ffi.Uint64 index,
-);
-
-typedef _dart_TWStringGet = int Function(
-  ffi.Pointer<ffi.Void> string,
-  int index,
-);
-
-typedef _c_TWStringUTF8Bytes = ffi.Pointer<ffi.Int8> Function(
-  ffi.Pointer<ffi.Void> string,
-);
-
-typedef _dart_TWStringUTF8Bytes = ffi.Pointer<ffi.Int8> Function(
-  ffi.Pointer<ffi.Void> string,
-);
-
-typedef _c_TWStringDelete = ffi.Void Function(
-  ffi.Pointer<ffi.Void> string,
-);
-
-typedef _dart_TWStringDelete = void Function(
-  ffi.Pointer<ffi.Void> string,
-);
-
-typedef _c_TWStringEqual = ffi.Int32 Function(
-  ffi.Pointer<ffi.Void> lhs,
-  ffi.Pointer<ffi.Void> rhs,
-);
-
-typedef _dart_TWStringEqual = int Function(
   ffi.Pointer<ffi.Void> lhs,
   ffi.Pointer<ffi.Void> rhs,
 );
@@ -2443,6 +5324,1566 @@ typedef _dart_TWCoinTypeSlip44Id = int Function(
   int coin,
 );
 
+typedef _c_TWAccountCreate = ffi.Pointer<TWAccount> Function(
+  ffi.Pointer<ffi.Void> address,
+  ffi.Int32 coin,
+  ffi.Pointer<ffi.Void> derivationPath,
+  ffi.Pointer<ffi.Void> extendedPublicKey,
+);
+
+typedef _dart_TWAccountCreate = ffi.Pointer<TWAccount> Function(
+  ffi.Pointer<ffi.Void> address,
+  int coin,
+  ffi.Pointer<ffi.Void> derivationPath,
+  ffi.Pointer<ffi.Void> extendedPublicKey,
+);
+
+typedef _c_TWAccountDelete = ffi.Void Function(
+  ffi.Pointer<TWAccount> account,
+);
+
+typedef _dart_TWAccountDelete = void Function(
+  ffi.Pointer<TWAccount> account,
+);
+
+typedef _c_TWAccountAddress = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWAccount> account,
+);
+
+typedef _dart_TWAccountAddress = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWAccount> account,
+);
+
+typedef _c_TWAccountDerivationPath = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWAccount> account,
+);
+
+typedef _dart_TWAccountDerivationPath = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWAccount> account,
+);
+
+typedef _c_TWAccountExtendedPublicKey = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWAccount> account,
+);
+
+typedef _dart_TWAccountExtendedPublicKey = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWAccount> account,
+);
+
+typedef _c_TWAccountCoin = ffi.Int32 Function(
+  ffi.Pointer<TWAccount> account,
+);
+
+typedef _dart_TWAccountCoin = int Function(
+  ffi.Pointer<TWAccount> account,
+);
+
+typedef _c_TWAESEncryptCBC = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> key,
+  ffi.Pointer<ffi.Void> data,
+  ffi.Pointer<ffi.Void> iv,
+  ffi.Int32 mode,
+);
+
+typedef _dart_TWAESEncryptCBC = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> key,
+  ffi.Pointer<ffi.Void> data,
+  ffi.Pointer<ffi.Void> iv,
+  int mode,
+);
+
+typedef _c_TWAESDecryptCBC = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> key,
+  ffi.Pointer<ffi.Void> data,
+  ffi.Pointer<ffi.Void> iv,
+  ffi.Int32 mode,
+);
+
+typedef _dart_TWAESDecryptCBC = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> key,
+  ffi.Pointer<ffi.Void> data,
+  ffi.Pointer<ffi.Void> iv,
+  int mode,
+);
+
+typedef _c_TWAESEncryptCTR = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> key,
+  ffi.Pointer<ffi.Void> data,
+  ffi.Pointer<ffi.Void> iv,
+);
+
+typedef _dart_TWAESEncryptCTR = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> key,
+  ffi.Pointer<ffi.Void> data,
+  ffi.Pointer<ffi.Void> iv,
+);
+
+typedef _c_TWAESDecryptCTR = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> key,
+  ffi.Pointer<ffi.Void> data,
+  ffi.Pointer<ffi.Void> iv,
+);
+
+typedef _dart_TWAESDecryptCTR = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> key,
+  ffi.Pointer<ffi.Void> data,
+  ffi.Pointer<ffi.Void> iv,
+);
+
+typedef _c_TWAnyAddressEqual = ffi.Int32 Function(
+  ffi.Pointer<TWAnyAddress> lhs,
+  ffi.Pointer<TWAnyAddress> rhs,
+);
+
+typedef _dart_TWAnyAddressEqual = int Function(
+  ffi.Pointer<TWAnyAddress> lhs,
+  ffi.Pointer<TWAnyAddress> rhs,
+);
+
+typedef _c_TWAnyAddressIsValid = ffi.Int32 Function(
+  ffi.Pointer<ffi.Void> string,
+  ffi.Int32 coin,
+);
+
+typedef _dart_TWAnyAddressIsValid = int Function(
+  ffi.Pointer<ffi.Void> string,
+  int coin,
+);
+
+typedef _c_TWAnyAddressCreateWithString = ffi.Pointer<TWAnyAddress> Function(
+  ffi.Pointer<ffi.Void> string,
+  ffi.Int32 coin,
+);
+
+typedef _dart_TWAnyAddressCreateWithString = ffi.Pointer<TWAnyAddress> Function(
+  ffi.Pointer<ffi.Void> string,
+  int coin,
+);
+
+typedef _c_TWAnyAddressCreateWithPublicKey = ffi.Pointer<TWAnyAddress> Function(
+  ffi.Pointer<TWPublicKey> publicKey,
+  ffi.Int32 coin,
+);
+
+typedef _dart_TWAnyAddressCreateWithPublicKey = ffi.Pointer<TWAnyAddress>
+    Function(
+  ffi.Pointer<TWPublicKey> publicKey,
+  int coin,
+);
+
+typedef _c_TWAnyAddressDelete = ffi.Void Function(
+  ffi.Pointer<TWAnyAddress> address,
+);
+
+typedef _dart_TWAnyAddressDelete = void Function(
+  ffi.Pointer<TWAnyAddress> address,
+);
+
+typedef _c_TWAnyAddressDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWAnyAddress> address,
+);
+
+typedef _dart_TWAnyAddressDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWAnyAddress> address,
+);
+
+typedef _c_TWAnyAddressCoin = ffi.Int32 Function(
+  ffi.Pointer<TWAnyAddress> address,
+);
+
+typedef _dart_TWAnyAddressCoin = int Function(
+  ffi.Pointer<TWAnyAddress> address,
+);
+
+typedef _c_TWAnyAddressData = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWAnyAddress> address,
+);
+
+typedef _dart_TWAnyAddressData = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWAnyAddress> address,
+);
+
+typedef _c_TWAnySignerSign = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+  ffi.Int32 coin,
+);
+
+typedef _dart_TWAnySignerSign = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+  int coin,
+);
+
+typedef _c_TWAnySignerSignJSON = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> json,
+  ffi.Pointer<ffi.Void> key,
+  ffi.Int32 coin,
+);
+
+typedef _dart_TWAnySignerSignJSON = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> json,
+  ffi.Pointer<ffi.Void> key,
+  int coin,
+);
+
+typedef _c_TWAnySignerSupportsJSON = ffi.Int32 Function(
+  ffi.Int32 coin,
+);
+
+typedef _dart_TWAnySignerSupportsJSON = int Function(
+  int coin,
+);
+
+typedef _c_TWAnySignerEncode = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+  ffi.Int32 coin,
+);
+
+typedef _dart_TWAnySignerEncode = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+  int coin,
+);
+
+typedef _c_TWAnySignerDecode = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+  ffi.Int32 coin,
+);
+
+typedef _dart_TWAnySignerDecode = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+  int coin,
+);
+
+typedef _c_TWAnySignerPlan = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+  ffi.Int32 coin,
+);
+
+typedef _dart_TWAnySignerPlan = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+  int coin,
+);
+
+typedef _c_TWBase58Encode = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWBase58Encode = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWBase58EncodeNoCheck = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWBase58EncodeNoCheck = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWBase58Decode = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWBase58Decode = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWBase58DecodeNoCheck = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWBase58DecodeNoCheck = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWBitcoinAddressEqual = ffi.Int32 Function(
+  ffi.Pointer<TWBitcoinAddress> lhs,
+  ffi.Pointer<TWBitcoinAddress> rhs,
+);
+
+typedef _dart_TWBitcoinAddressEqual = int Function(
+  ffi.Pointer<TWBitcoinAddress> lhs,
+  ffi.Pointer<TWBitcoinAddress> rhs,
+);
+
+typedef _c_TWBitcoinAddressIsValid = ffi.Int32 Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWBitcoinAddressIsValid = int Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWBitcoinAddressIsValidString = ffi.Int32 Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWBitcoinAddressIsValidString = int Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWBitcoinAddressCreateWithString = ffi.Pointer<TWBitcoinAddress>
+    Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWBitcoinAddressCreateWithString = ffi.Pointer<TWBitcoinAddress>
+    Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWBitcoinAddressCreateWithData = ffi.Pointer<TWBitcoinAddress>
+    Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWBitcoinAddressCreateWithData = ffi.Pointer<TWBitcoinAddress>
+    Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWBitcoinAddressCreateWithPublicKey = ffi.Pointer<TWBitcoinAddress>
+    Function(
+  ffi.Pointer<TWPublicKey> publicKey,
+  ffi.Uint8 prefix,
+);
+
+typedef _dart_TWBitcoinAddressCreateWithPublicKey
+    = ffi.Pointer<TWBitcoinAddress> Function(
+  ffi.Pointer<TWPublicKey> publicKey,
+  int prefix,
+);
+
+typedef _c_TWBitcoinAddressDelete = ffi.Void Function(
+  ffi.Pointer<TWBitcoinAddress> address,
+);
+
+typedef _dart_TWBitcoinAddressDelete = void Function(
+  ffi.Pointer<TWBitcoinAddress> address,
+);
+
+typedef _c_TWBitcoinAddressDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinAddress> address,
+);
+
+typedef _dart_TWBitcoinAddressDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinAddress> address,
+);
+
+typedef _c_TWBitcoinAddressPrefix = ffi.Uint8 Function(
+  ffi.Pointer<TWBitcoinAddress> address,
+);
+
+typedef _dart_TWBitcoinAddressPrefix = int Function(
+  ffi.Pointer<TWBitcoinAddress> address,
+);
+
+typedef _c_TWBitcoinAddressKeyhash = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinAddress> address,
+);
+
+typedef _dart_TWBitcoinAddressKeyhash = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinAddress> address,
+);
+
+typedef _c_TWBitcoinSigHashTypeIsSingle = ffi.Int32 Function(
+  ffi.Int32 type,
+);
+
+typedef _dart_TWBitcoinSigHashTypeIsSingle = int Function(
+  int type,
+);
+
+typedef _c_TWBitcoinSigHashTypeIsNone = ffi.Int32 Function(
+  ffi.Int32 type,
+);
+
+typedef _dart_TWBitcoinSigHashTypeIsNone = int Function(
+  int type,
+);
+
+typedef _c_TWBitcoinScriptCreate = ffi.Pointer<TWBitcoinScript> Function();
+
+typedef _dart_TWBitcoinScriptCreate = ffi.Pointer<TWBitcoinScript> Function();
+
+typedef _c_TWBitcoinScriptCreateWithData = ffi.Pointer<TWBitcoinScript>
+    Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWBitcoinScriptCreateWithData = ffi.Pointer<TWBitcoinScript>
+    Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWBitcoinScriptCreateWithBytes = ffi.Pointer<TWBitcoinScript>
+    Function(
+  ffi.Pointer<ffi.Uint8> bytes,
+  ffi.Uint64 size,
+);
+
+typedef _dart_TWBitcoinScriptCreateWithBytes = ffi.Pointer<TWBitcoinScript>
+    Function(
+  ffi.Pointer<ffi.Uint8> bytes,
+  int size,
+);
+
+typedef _c_TWBitcoinScriptCreateCopy = ffi.Pointer<TWBitcoinScript> Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptCreateCopy = ffi.Pointer<TWBitcoinScript> Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptDelete = ffi.Void Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptDelete = void Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptSize = ffi.Uint64 Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptSize = int Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptData = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptData = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptScriptHash = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptScriptHash = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptIsPayToScriptHash = ffi.Int32 Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptIsPayToScriptHash = int Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptIsPayToWitnessScriptHash = ffi.Int32 Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptIsPayToWitnessScriptHash = int Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptIsPayToWitnessPublicKeyHash = ffi.Int32 Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptIsPayToWitnessPublicKeyHash = int Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptIsWitnessProgram = ffi.Int32 Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptIsWitnessProgram = int Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptEqual = ffi.Int32 Function(
+  ffi.Pointer<TWBitcoinScript> lhs,
+  ffi.Pointer<TWBitcoinScript> rhs,
+);
+
+typedef _dart_TWBitcoinScriptEqual = int Function(
+  ffi.Pointer<TWBitcoinScript> lhs,
+  ffi.Pointer<TWBitcoinScript> rhs,
+);
+
+typedef _c_TWBitcoinScriptMatchPayToPubkey = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptMatchPayToPubkey = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptMatchPayToPubkeyHash = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptMatchPayToPubkeyHash = ffi.Pointer<ffi.Void>
+    Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptMatchPayToScriptHash = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptMatchPayToScriptHash = ffi.Pointer<ffi.Void>
+    Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptMatchPayToWitnessPublicKeyHash = ffi.Pointer<ffi.Void>
+    Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptMatchPayToWitnessPublicKeyHash
+    = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptMatchPayToWitnessScriptHash = ffi.Pointer<ffi.Void>
+    Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptMatchPayToWitnessScriptHash = ffi.Pointer<ffi.Void>
+    Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptEncode = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _dart_TWBitcoinScriptEncode = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWBitcoinScript> script,
+);
+
+typedef _c_TWBitcoinScriptBuildPayToPublicKeyHash = ffi.Pointer<TWBitcoinScript>
+    Function(
+  ffi.Pointer<ffi.Void> hash,
+);
+
+typedef _dart_TWBitcoinScriptBuildPayToPublicKeyHash
+    = ffi.Pointer<TWBitcoinScript> Function(
+  ffi.Pointer<ffi.Void> hash,
+);
+
+typedef _c_TWBitcoinScriptBuildPayToScriptHash = ffi.Pointer<TWBitcoinScript>
+    Function(
+  ffi.Pointer<ffi.Void> scriptHash,
+);
+
+typedef _dart_TWBitcoinScriptBuildPayToScriptHash = ffi.Pointer<TWBitcoinScript>
+    Function(
+  ffi.Pointer<ffi.Void> scriptHash,
+);
+
+typedef _c_TWBitcoinScriptBuildPayToWitnessPubkeyHash
+    = ffi.Pointer<TWBitcoinScript> Function(
+  ffi.Pointer<ffi.Void> hash,
+);
+
+typedef _dart_TWBitcoinScriptBuildPayToWitnessPubkeyHash
+    = ffi.Pointer<TWBitcoinScript> Function(
+  ffi.Pointer<ffi.Void> hash,
+);
+
+typedef _c_TWBitcoinScriptBuildPayToWitnessScriptHash
+    = ffi.Pointer<TWBitcoinScript> Function(
+  ffi.Pointer<ffi.Void> scriptHash,
+);
+
+typedef _dart_TWBitcoinScriptBuildPayToWitnessScriptHash
+    = ffi.Pointer<TWBitcoinScript> Function(
+  ffi.Pointer<ffi.Void> scriptHash,
+);
+
+typedef _c_TWBitcoinScriptLockScriptForAddress = ffi.Pointer<TWBitcoinScript>
+    Function(
+  ffi.Pointer<ffi.Void> address,
+  ffi.Int32 coin,
+);
+
+typedef _dart_TWBitcoinScriptLockScriptForAddress = ffi.Pointer<TWBitcoinScript>
+    Function(
+  ffi.Pointer<ffi.Void> address,
+  int coin,
+);
+
+typedef _c_TWBitcoinScriptHashTypeForCoin = ffi.Uint32 Function(
+  ffi.Int32 coinType,
+);
+
+typedef _dart_TWBitcoinScriptHashTypeForCoin = int Function(
+  int coinType,
+);
+
+typedef _c_TWCoinTypeConfigurationGetSymbol = ffi.Pointer<ffi.Void> Function(
+  ffi.Int32 type,
+);
+
+typedef _dart_TWCoinTypeConfigurationGetSymbol = ffi.Pointer<ffi.Void> Function(
+  int type,
+);
+
+typedef _c_TWCoinTypeConfigurationGetDecimals = ffi.Int32 Function(
+  ffi.Int32 type,
+);
+
+typedef _dart_TWCoinTypeConfigurationGetDecimals = int Function(
+  int type,
+);
+
+typedef _c_TWCoinTypeConfigurationGetTransactionURL = ffi.Pointer<ffi.Void>
+    Function(
+  ffi.Int32 type,
+  ffi.Pointer<ffi.Void> transactionID,
+);
+
+typedef _dart_TWCoinTypeConfigurationGetTransactionURL = ffi.Pointer<ffi.Void>
+    Function(
+  int type,
+  ffi.Pointer<ffi.Void> transactionID,
+);
+
+typedef _c_TWCoinTypeConfigurationGetAccountURL = ffi.Pointer<ffi.Void>
+    Function(
+  ffi.Int32 type,
+  ffi.Pointer<ffi.Void> accountID,
+);
+
+typedef _dart_TWCoinTypeConfigurationGetAccountURL = ffi.Pointer<ffi.Void>
+    Function(
+  int type,
+  ffi.Pointer<ffi.Void> accountID,
+);
+
+typedef _c_TWCoinTypeConfigurationGetID = ffi.Pointer<ffi.Void> Function(
+  ffi.Int32 type,
+);
+
+typedef _dart_TWCoinTypeConfigurationGetID = ffi.Pointer<ffi.Void> Function(
+  int type,
+);
+
+typedef _c_TWCoinTypeConfigurationGetName = ffi.Pointer<ffi.Void> Function(
+  ffi.Int32 type,
+);
+
+typedef _dart_TWCoinTypeConfigurationGetName = ffi.Pointer<ffi.Void> Function(
+  int type,
+);
+
+typedef _c_TWEthereumAbiEncode = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+);
+
+typedef _dart_TWEthereumAbiEncode = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+);
+
+typedef _c_TWEthereumAbiDecodeOutput = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Pointer<ffi.Void> encoded,
+);
+
+typedef _dart_TWEthereumAbiDecodeOutput = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Pointer<ffi.Void> encoded,
+);
+
+typedef _c_TWEthereumAbiDecodeCall = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+  ffi.Pointer<ffi.Void> abi,
+);
+
+typedef _dart_TWEthereumAbiDecodeCall = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+  ffi.Pointer<ffi.Void> abi,
+);
+
+typedef _c_TWEthereumAbiFunctionCreateWithString
+    = ffi.Pointer<TWEthereumAbiFunction> Function(
+  ffi.Pointer<ffi.Void> name,
+);
+
+typedef _dart_TWEthereumAbiFunctionCreateWithString
+    = ffi.Pointer<TWEthereumAbiFunction> Function(
+  ffi.Pointer<ffi.Void> name,
+);
+
+typedef _c_TWEthereumAbiFunctionDelete = ffi.Void Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+);
+
+typedef _dart_TWEthereumAbiFunctionDelete = void Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+);
+
+typedef _c_TWEthereumAbiFunctionGetType = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+);
+
+typedef _dart_TWEthereumAbiFunctionGetType = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamUInt8 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Uint8 val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamUInt8 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamUInt16 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Uint16 val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamUInt16 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamUInt32 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Uint32 val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamUInt32 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamUInt64 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Uint64 val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamUInt64 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamUInt256 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Pointer<ffi.Void> val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamUInt256 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Pointer<ffi.Void> val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamUIntN = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 bits,
+  ffi.Pointer<ffi.Void> val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamUIntN = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int bits,
+  ffi.Pointer<ffi.Void> val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamInt8 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int8 val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamInt8 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamInt16 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int16 val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamInt16 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamInt32 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamInt32 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamInt64 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int64 val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamInt64 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamInt256 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Pointer<ffi.Void> val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamInt256 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Pointer<ffi.Void> val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamIntN = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 bits,
+  ffi.Pointer<ffi.Void> val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamIntN = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int bits,
+  ffi.Pointer<ffi.Void> val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamBool = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamBool = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamString = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Pointer<ffi.Void> val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamString = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Pointer<ffi.Void> val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamAddress = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Pointer<ffi.Void> val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamAddress = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Pointer<ffi.Void> val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamBytes = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Pointer<ffi.Void> val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamBytes = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Pointer<ffi.Void> val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamBytesFix = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Uint64 size,
+  ffi.Pointer<ffi.Void> val,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamBytesFix = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int size,
+  ffi.Pointer<ffi.Void> val,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddParamArray = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddParamArray = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionGetParamUInt8 = ffi.Uint8 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 idx,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionGetParamUInt8 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int idx,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionGetParamUInt64 = ffi.Uint64 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 idx,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionGetParamUInt64 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int idx,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionGetParamUInt256 = ffi.Pointer<ffi.Void>
+    Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 idx,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionGetParamUInt256 = ffi.Pointer<ffi.Void>
+    Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int idx,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionGetParamBool = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 idx,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionGetParamBool = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int idx,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionGetParamString = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 idx,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionGetParamString = ffi.Pointer<ffi.Void>
+    Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int idx,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionGetParamAddress = ffi.Pointer<ffi.Void>
+    Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 idx,
+  ffi.Int32 isOutput,
+);
+
+typedef _dart_TWEthereumAbiFunctionGetParamAddress = ffi.Pointer<ffi.Void>
+    Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int idx,
+  int isOutput,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamUInt8 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Uint8 val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamUInt8 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  int val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamUInt16 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Uint16 val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamUInt16 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  int val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamUInt32 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Uint32 val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamUInt32 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  int val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamUInt64 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Uint64 val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamUInt64 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  int val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamUInt256 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamUInt256 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamUIntN = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Int32 bits,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamUIntN = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  int bits,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamInt8 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Int8 val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamInt8 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  int val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamInt16 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Int16 val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamInt16 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  int val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamInt32 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Int32 val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamInt32 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  int val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamInt64 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Int64 val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamInt64 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  int val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamInt256 = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamInt256 = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamIntN = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Int32 bits,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamIntN = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  int bits,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamBool = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Int32 val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamBool = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  int val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamString = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamString = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamAddress = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamAddress = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamBytes = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamBytes = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _c_TWEthereumAbiFunctionAddInArrayParamBytesFix = ffi.Int32 Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  ffi.Int32 arrayIdx,
+  ffi.Uint64 size,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _dart_TWEthereumAbiFunctionAddInArrayParamBytesFix = int Function(
+  ffi.Pointer<TWEthereumAbiFunction> fn,
+  int arrayIdx,
+  int size,
+  ffi.Pointer<ffi.Void> val,
+);
+
+typedef _c_TWEthereumAbiValueEncodeBool = ffi.Pointer<ffi.Void> Function(
+  ffi.Int32 value,
+);
+
+typedef _dart_TWEthereumAbiValueEncodeBool = ffi.Pointer<ffi.Void> Function(
+  int value,
+);
+
+typedef _c_TWEthereumAbiValueEncodeInt32 = ffi.Pointer<ffi.Void> Function(
+  ffi.Int32 value,
+);
+
+typedef _dart_TWEthereumAbiValueEncodeInt32 = ffi.Pointer<ffi.Void> Function(
+  int value,
+);
+
+typedef _c_TWEthereumAbiValueEncodeUInt32 = ffi.Pointer<ffi.Void> Function(
+  ffi.Uint32 value,
+);
+
+typedef _dart_TWEthereumAbiValueEncodeUInt32 = ffi.Pointer<ffi.Void> Function(
+  int value,
+);
+
+typedef _c_TWEthereumAbiValueEncodeInt256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> value,
+);
+
+typedef _dart_TWEthereumAbiValueEncodeInt256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> value,
+);
+
+typedef _c_TWEthereumAbiValueEncodeUInt256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> value,
+);
+
+typedef _dart_TWEthereumAbiValueEncodeUInt256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> value,
+);
+
+typedef _c_TWEthereumAbiValueEncodeAddress = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> value,
+);
+
+typedef _dart_TWEthereumAbiValueEncodeAddress = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> value,
+);
+
+typedef _c_TWEthereumAbiValueEncodeString = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> value,
+);
+
+typedef _dart_TWEthereumAbiValueEncodeString = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> value,
+);
+
+typedef _c_TWEthereumAbiValueEncodeBytes = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> value,
+);
+
+typedef _dart_TWEthereumAbiValueEncodeBytes = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> value,
+);
+
+typedef _c_TWEthereumAbiValueEncodeBytesDyn = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> value,
+);
+
+typedef _dart_TWEthereumAbiValueEncodeBytesDyn = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> value,
+);
+
+typedef _c_TWEthereumAbiValueDecodeUInt256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+);
+
+typedef _dart_TWEthereumAbiValueDecodeUInt256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+);
+
+typedef _c_TWEthereumAbiValueDecodeValue = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+  ffi.Pointer<ffi.Void> type,
+);
+
+typedef _dart_TWEthereumAbiValueDecodeValue = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+  ffi.Pointer<ffi.Void> type,
+);
+
+typedef _c_TWEthereumAbiValueDecodeArray = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+  ffi.Pointer<ffi.Void> type,
+);
+
+typedef _dart_TWEthereumAbiValueDecodeArray = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> input,
+  ffi.Pointer<ffi.Void> type,
+);
+
+typedef _c_TWFIOAccountCreateWithString = ffi.Pointer<TWFIOAccount> Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWFIOAccountCreateWithString = ffi.Pointer<TWFIOAccount> Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWFIOAccountDelete = ffi.Void Function(
+  ffi.Pointer<TWFIOAccount> account,
+);
+
+typedef _dart_TWFIOAccountDelete = void Function(
+  ffi.Pointer<TWFIOAccount> account,
+);
+
+typedef _c_TWFIOAccountDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWFIOAccount> account,
+);
+
+typedef _dart_TWFIOAccountDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWFIOAccount> account,
+);
+
+typedef _c_TWGroestlcoinAddressEqual = ffi.Int32 Function(
+  ffi.Pointer<TWGroestlcoinAddress> lhs,
+  ffi.Pointer<TWGroestlcoinAddress> rhs,
+);
+
+typedef _dart_TWGroestlcoinAddressEqual = int Function(
+  ffi.Pointer<TWGroestlcoinAddress> lhs,
+  ffi.Pointer<TWGroestlcoinAddress> rhs,
+);
+
+typedef _c_TWGroestlcoinAddressIsValidString = ffi.Int32 Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWGroestlcoinAddressIsValidString = int Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWGroestlcoinAddressCreateWithString
+    = ffi.Pointer<TWGroestlcoinAddress> Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWGroestlcoinAddressCreateWithString
+    = ffi.Pointer<TWGroestlcoinAddress> Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWGroestlcoinAddressCreateWithPublicKey
+    = ffi.Pointer<TWGroestlcoinAddress> Function(
+  ffi.Pointer<TWPublicKey> publicKey,
+  ffi.Uint8 prefix,
+);
+
+typedef _dart_TWGroestlcoinAddressCreateWithPublicKey
+    = ffi.Pointer<TWGroestlcoinAddress> Function(
+  ffi.Pointer<TWPublicKey> publicKey,
+  int prefix,
+);
+
+typedef _c_TWGroestlcoinAddressDelete = ffi.Void Function(
+  ffi.Pointer<TWGroestlcoinAddress> address,
+);
+
+typedef _dart_TWGroestlcoinAddressDelete = void Function(
+  ffi.Pointer<TWGroestlcoinAddress> address,
+);
+
+typedef _c_TWGroestlcoinAddressDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWGroestlcoinAddress> address,
+);
+
+typedef _dart_TWGroestlcoinAddressDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWGroestlcoinAddress> address,
+);
+
+typedef _c_TWHashSHA1 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashSHA1 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashSHA256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashSHA256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashSHA512 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashSHA512 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashSHA512_256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashSHA512_256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashKeccak256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashKeccak256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashKeccak512 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashKeccak512 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashSHA3_256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashSHA3_256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashSHA3_512 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashSHA3_512 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashRIPEMD = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashRIPEMD = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashBlake256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashBlake256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashBlake2b = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+  ffi.Uint64 size,
+);
+
+typedef _dart_TWHashBlake2b = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+  int size,
+);
+
+typedef _c_TWHashGroestl512 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashGroestl512 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashXXHash64 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+  ffi.Uint64 seed,
+);
+
+typedef _dart_TWHashXXHash64 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+  int seed,
+);
+
+typedef _c_TWHashTwoXXHash64Concat = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashTwoXXHash64Concat = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashSHA256SHA256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashSHA256SHA256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashSHA256RIPEMD = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashSHA256RIPEMD = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashSHA3_256RIPEMD = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashSHA3_256RIPEMD = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashBlake256Blake256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashBlake256Blake256 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashBlake256RIPEMD = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashBlake256RIPEMD = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _c_TWHashGroestl512Groestl512 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
+typedef _dart_TWHashGroestl512Groestl512 = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<ffi.Void> data,
+);
+
 typedef _c_TWHDWalletIsValid = ffi.Int32 Function(
   ffi.Pointer<ffi.Void> mnemonic,
 );
@@ -2603,6 +7044,167 @@ typedef _dart_TWHDWalletGetPublicKeyFromExtended = ffi.Pointer<TWPublicKey>
   ffi.Pointer<ffi.Void> extended,
   int coin,
   ffi.Pointer<ffi.Void> derivationPath,
+);
+
+typedef _c_TWNEARAccountCreateWithString = ffi.Pointer<TWNEARAccount> Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWNEARAccountCreateWithString = ffi.Pointer<TWNEARAccount>
+    Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWNEARAccountDelete = ffi.Void Function(
+  ffi.Pointer<TWNEARAccount> account,
+);
+
+typedef _dart_TWNEARAccountDelete = void Function(
+  ffi.Pointer<TWNEARAccount> account,
+);
+
+typedef _c_TWNEARAccountDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWNEARAccount> account,
+);
+
+typedef _dart_TWNEARAccountDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWNEARAccount> account,
+);
+
+typedef _c_TWRippleXAddressEqual = ffi.Int32 Function(
+  ffi.Pointer<TWRippleXAddress> lhs,
+  ffi.Pointer<TWRippleXAddress> rhs,
+);
+
+typedef _dart_TWRippleXAddressEqual = int Function(
+  ffi.Pointer<TWRippleXAddress> lhs,
+  ffi.Pointer<TWRippleXAddress> rhs,
+);
+
+typedef _c_TWRippleXAddressIsValidString = ffi.Int32 Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWRippleXAddressIsValidString = int Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWRippleXAddressCreateWithString = ffi.Pointer<TWRippleXAddress>
+    Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWRippleXAddressCreateWithString = ffi.Pointer<TWRippleXAddress>
+    Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWRippleXAddressCreateWithPublicKey = ffi.Pointer<TWRippleXAddress>
+    Function(
+  ffi.Pointer<TWPublicKey> publicKey,
+  ffi.Uint32 tag,
+);
+
+typedef _dart_TWRippleXAddressCreateWithPublicKey
+    = ffi.Pointer<TWRippleXAddress> Function(
+  ffi.Pointer<TWPublicKey> publicKey,
+  int tag,
+);
+
+typedef _c_TWRippleXAddressDelete = ffi.Void Function(
+  ffi.Pointer<TWRippleXAddress> address,
+);
+
+typedef _dart_TWRippleXAddressDelete = void Function(
+  ffi.Pointer<TWRippleXAddress> address,
+);
+
+typedef _c_TWRippleXAddressDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWRippleXAddress> address,
+);
+
+typedef _dart_TWRippleXAddressDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWRippleXAddress> address,
+);
+
+typedef _c_TWRippleXAddressTag = ffi.Uint32 Function(
+  ffi.Pointer<TWRippleXAddress> address,
+);
+
+typedef _dart_TWRippleXAddressTag = int Function(
+  ffi.Pointer<TWRippleXAddress> address,
+);
+
+typedef _c_TWSegwitAddressEqual = ffi.Int32 Function(
+  ffi.Pointer<TWSegwitAddress> lhs,
+  ffi.Pointer<TWSegwitAddress> rhs,
+);
+
+typedef _dart_TWSegwitAddressEqual = int Function(
+  ffi.Pointer<TWSegwitAddress> lhs,
+  ffi.Pointer<TWSegwitAddress> rhs,
+);
+
+typedef _c_TWSegwitAddressIsValidString = ffi.Int32 Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWSegwitAddressIsValidString = int Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWSegwitAddressCreateWithString = ffi.Pointer<TWSegwitAddress>
+    Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _dart_TWSegwitAddressCreateWithString = ffi.Pointer<TWSegwitAddress>
+    Function(
+  ffi.Pointer<ffi.Void> string,
+);
+
+typedef _c_TWSegwitAddressCreateWithPublicKey = ffi.Pointer<TWSegwitAddress>
+    Function(
+  ffi.Int32 hrp,
+  ffi.Pointer<TWPublicKey> publicKey,
+);
+
+typedef _dart_TWSegwitAddressCreateWithPublicKey = ffi.Pointer<TWSegwitAddress>
+    Function(
+  int hrp,
+  ffi.Pointer<TWPublicKey> publicKey,
+);
+
+typedef _c_TWSegwitAddressDelete = ffi.Void Function(
+  ffi.Pointer<TWSegwitAddress> address,
+);
+
+typedef _dart_TWSegwitAddressDelete = void Function(
+  ffi.Pointer<TWSegwitAddress> address,
+);
+
+typedef _c_TWSegwitAddressDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWSegwitAddress> address,
+);
+
+typedef _dart_TWSegwitAddressDescription = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWSegwitAddress> address,
+);
+
+typedef _c_TWSegwitAddressHRP = ffi.Int32 Function(
+  ffi.Pointer<TWSegwitAddress> address,
+);
+
+typedef _dart_TWSegwitAddressHRP = int Function(
+  ffi.Pointer<TWSegwitAddress> address,
+);
+
+typedef _c_TWSegwitAddressWitnessProgram = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWSegwitAddress> address,
+);
+
+typedef _dart_TWSegwitAddressWitnessProgram = ffi.Pointer<ffi.Void> Function(
+  ffi.Pointer<TWSegwitAddress> address,
 );
 
 typedef _c_TWStoredKeyLoad = ffi.Pointer<TWStoredKey> Function(
