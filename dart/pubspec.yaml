@@ -29,15 +29,20 @@ ffigen:
     style: doxygen # Options - doxygen(default) / any.
     length: full # Options - brief / full(default).
 
+#  compiler-opts: '-I/usr/local/opt/llvm/include -L/usr/local/opt/llvm/lib -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include -Wno-nullability-completeness'
+
   #
   #
   # Bash style Glob matching is also supported.
   # TODO(11): Globs dont work on windows if they begin with '.' or '..'.
   headers:
     entry-points:
-      - 'include/TrustWalletCore/TWHDWallet.h'
+      - '../include/TrustWalletCore/TWHDWallet.h'
+      - '../include/TrustWalletCore/TWStoredKey.h'
+#      - '../include/TrustWalletCore/**.h'
+
     include-directives:
-      - 'include/TrustWalletCore/**.h'
-      - 'src/**.h'
+      - '../include/TrustWalletCore/**.h'
+      - '../src/**.h'
 
 
