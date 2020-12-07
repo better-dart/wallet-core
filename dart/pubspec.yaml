@@ -35,9 +35,9 @@ ffigen:
   # TODO(11): Globs dont work on windows if they begin with '.' or '..'.
   headers:
     entry-points:
-      - '../../third_party/cjson_library/cJSON.h'
+      - 'include/TrustWalletCore/TWHDWallet.h'
     include-directives:
-      - '**cJSON.h'
-
+      - 'include/TrustWalletCore/**.h'
+      - 'src/**.h'
 
 
