@@ -1,5 +1,5 @@
-name: dart
-description: A simple command-line application.
+name: wallet_core
+description: use dart:ffi binding wallet-core.
 # version: 1.0.0
 # homepage: https://www.example.com
 
@@ -11,7 +11,7 @@ dependencies:
 
 dev_dependencies:
   pedantic: ^1.9.0
-  ffigen:
+  ffigen: ^1.2.0
 
 
 ###################################################
