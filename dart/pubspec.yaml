@@ -17,7 +17,7 @@ dev_dependencies:
 ###################################################
 
 ffigen:
-  output: 'wallet_core_bindings.dart'
+  output: 'lib/wallet_core_bindings.dart'
 
   name: 'WalletCore'
   sort: true
