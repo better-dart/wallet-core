@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ ${TW_CXX_WARNINGS}")
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 if (NOT ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang"))
     message(FATAL_ERROR "You should use clang compiler")
@@ -66,6 +67,15 @@ if(CLANG_TIDY)
     else()
         message(FATAL_ERROR "Could not find clang-tidy")
     endif()
+endif()
+
+option(CLANG_ASAN "Enable ASAN dynamic address sanitizer" OFF)
+if(CLANG_ASAN)
+    # https://clang.llvm.org/docs/AddressSanitizer.html
+    # https://github.com/trustwallet/wallet-core/issues/1170
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -fno-omit-frame-pointer")
+    set(CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG} -fsanitize=address -fno-omit-frame-pointer")
+    message("CLANG_ASAN on, ${CMAKE_CXX_FLAGS_DEBUG}")
 endif()
 
 # Source files

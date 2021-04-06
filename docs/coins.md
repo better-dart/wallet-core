@@ -18,7 +18,7 @@ This list is generated from [./coins.json](../coins.json)
 | 74      | ICON             | ICX    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/icon/info/logo.png" width="32" />         | <https://icon.foundation>     |
 | 118     | Cosmos           | ATOM   | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/cosmos/info/logo.png" width="32" />       | <https://cosmos.network>      |
 | 133     | Zcash            | ZEC    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/zcash/info/logo.png" width="32" />        | <https://z.cash>              |
-| 136     | Zcoin            | XZC    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/zcoin/info/logo.png" width="32" />        | <https://zcoin.io>            |
+| 136     | Zcoin            | FIRO   | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/zcoin/info/logo.png" width="32" />        | <https://firo.org/>           |
 | 144     | XRP              | XRP    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ripple/info/logo.png" width="32" />       | <https://ripple.com/xrp>      |
 | 145     | Bitcoin Cash     | BCH    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoincash/info/logo.png" width="32" />  | <https://bitcoincash.org>     |
 | 148     | Stellar          | XLM    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/stellar/info/logo.png" width="32" />      | <https://stellar.org>         |
@@ -42,6 +42,7 @@ This list is generated from [./coins.json](../coins.json)
 | 457     | Aeternity        | AE     | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/aeternity/info/logo.png" width="32" />    | <https://aeternity.com>       |
 | 459     | Kava             | KAVA   | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/kava/info/logo.png" width="32" />         | <https://kava.io>             |
 | 461     | Filecoin         | FIL    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/filecoin/info/logo.png" width="32" />     | <https://filecoin.io/>        |
+| 474     | Oasis            | ROSE   | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/oasis/info/logo.png" width="32" />        | <https://www.oasislabs.com/>  |
 | 494     | BandChain        | BAND   | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/band/info/logo.png" width="32" />         | <https://bandprotocol.com/>   |
 | 500     | Theta            | THETA  | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/theta/info/logo.png" width="32" />        | <https://www.thetatoken.org>  |
 | 501     | Solana           | SOL    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/solana/info/logo.png" width="32" />       | <https://solana.com>          |
@@ -51,6 +52,7 @@ This list is generated from [./coins.json](../coins.json)
 | 820     | Callisto         | CLO    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/callisto/info/logo.png" width="32" />     | <https://callisto.network>    |
 | 888     | NEO              | NEO    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/neo/info/logo.png" width="32" />          | <https://neo.org>             |
 | 889     | TomoChain        | TOMO   | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/tomochain/info/logo.png" width="32" />    | <https://tomochain.com>       |
+| 966     | Polygon          | MATIC  | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/matic/info/logo.png" width="32" />        | <https://polygon.technology>  |
 | 1001    | Thunder Token    | TT     | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/thundertoken/info/logo.png" width="32" /> | <https://thundercore.com>     |
 | 1023    | Harmony          | ONE    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/harmony/info/logo.png" width="32" />      | <https://harmony.one>         |
 | 1024    | Ontology         | ONT    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ontology/info/logo.png" width="32" />     | <https://ont.io>              |
