@@ -1,4 +1,4 @@
-// Copyright © 2017-2020 Trust Wallet.
+// Copyright © 2017-2021 Trust Wallet.
 //
 // This file is part of Trust. The full Trust copyright notice, including
 // terms governing use, modification, and redistribution, is contained in the
@@ -44,7 +44,7 @@
 #include "Stellar/Entry.h"
 #include "Tezos/Entry.h"
 #include "Theta/Entry.h"
-#include "TON/Entry.h"
+#include "THORChain/Entry.h"
 #include "Tron/Entry.h"
 #include "VeChain/Entry.h"
 #include "Waves/Entry.h"
@@ -89,7 +89,7 @@ Solana::Entry solanaDP;
 Stellar::Entry stellarDP;
 Tezos::Entry tezosDP;
 Theta::Entry thetaDP;
-TON::Entry tonDP;
+THORChain::Entry thorchainDP;
 Tron::Entry tronDP;
 VeChain::Entry vechainDP;
 Waves::Entry wavesDP;
@@ -123,6 +123,7 @@ CoinEntry* coinDispatcher(TWCoinType coinType) {
         case TWCoinTypeKava: entry = &cosmosDP; break;
         case TWCoinTypeTerra: entry = &cosmosDP; break;
         case TWCoinTypeBandChain: entry = &cosmosDP; break;
+        case TWCoinTypeBluzelle: entry = &cosmosDP; break;
         case TWCoinTypeElrond: entry = &elrondDP; break;
         case TWCoinTypeEOS: entry = &eosDP; break;
         case TWCoinTypeCallisto: entry = &ethereumDP; break;
@@ -157,7 +158,7 @@ CoinEntry* coinDispatcher(TWCoinType coinType) {
         case TWCoinTypeKin: entry = &stellarDP; break;
         case TWCoinTypeTezos: entry = &tezosDP; break;
         case TWCoinTypeTheta: entry = &thetaDP; break;
-        case TWCoinTypeTON: entry = &tonDP; break;
+        case TWCoinTypeTHORChain: entry = &thorchainDP; break;
         case TWCoinTypeTron: entry = &tronDP; break;
         case TWCoinTypeVeChain: entry = &vechainDP; break;
         case TWCoinTypeWanchain: entry = &ethereumDP; break;

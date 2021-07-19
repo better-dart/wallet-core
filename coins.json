@@ -793,28 +793,6 @@
     }
   },
   {
-    "id": "ton",
-    "name": "TON",
-    "coinId": 396,
-    "symbol": "GRAM",
-    "decimals": 9,
-    "blockchain": "TON",
-    "derivationPath": "m/44'/396'/0'",
-    "curve": "ed25519",
-    "publicKeyType": "ed25519",
-    "explorer": {
-      "url": "https://test.ton.org",
-      "txPath": "/testnet/transaction?hash=",
-      "accountPath": "/testnet/account?account="
-    },
-    "info": {
-      "url": "https://test.ton.org",
-      "client": "https://github.com/ton-blockchain/ton",
-      "clientPublic": "",
-      "clientDocs": "https://test.ton.org/"
-    }
-  },
-  {
     "id": "near",
     "name": "NEAR",
     "coinId": 397,
@@ -951,6 +929,31 @@
       "client": "https://github.com/filecoin-project/lotus",
       "clientPublic": "",
       "clientDocs": "https://docs.lotu.sh"
+    }
+  },
+  {
+    "id": "bluzelle",
+    "name": "Bluzelle",
+    "coinId": 483,
+    "symbol": "BLZ",
+    "decimals": 6,
+    "blockchain": "Cosmos",
+    "derivationPath": "m/44'/483'/0'/0/0",
+    "curve": "secp256k1",
+    "publicKeyType": "secp256k1",
+    "hrp": "bluzelle",
+    "explorer": {
+      "url": "https://bigdipper.net.bluzelle.com",
+      "txPath": "/transactions/",
+      "accountPath": "/account/",
+      "sampleTx": "AC026E0EC6E33A77D5EA6B9CEF9810699BC2AD8C5582E007E7857457C6D3B819",
+      "sampleAccount": "bluzelle1q9cryfal7u3jvnq6er5ufety20xtzw6ycx2te9"
+    },
+    "info": {
+      "url": "https://bluzelle.com",
+      "client": "https://github.com/bluzelle",
+      "clientPublic": "https://bluzelle.github.io/api/",
+      "clientDocs": "https://docs.bluzelle.com/developers/"
     }
   },
   {
@@ -1213,8 +1216,8 @@
     "symbol": "ROSE",
     "decimals": 9,
     "blockchain": "OasisNetwork",
-    "derivationPath": "m/44'/474'/0'/0'/0'",
-    "curve": "ed25519HD",
+    "derivationPath": "m/44'/474'/0'",
+    "curve": "ed25519",
     "publicKeyType": "ed25519",
     "hrp": "oasis",
     "explorer": {
@@ -1225,10 +1228,10 @@
       "sampleAccount": "oasis1qrx376dmwuckmruzn9vq64n49clw72lywctvxdf4"
     },
     "info": {
-      "url": "https://www.oasislabs.com/",
+      "url": "https://oasisprotocol.org/",
       "client": "https://github.com/oasisprotocol/oasis-core",
-      "clientPublic": "https://rosetta.oasis.dev/api/",
-      "clientDocs": "https://github.com/oasisprotocol/oasis-core/blob/master/docs/oasis-node/rpc.md"
+      "clientPublic": "https://rosetta.oasis.dev/api/v1",
+      "clientDocs": "https://docs.oasis.dev/oasis-core/"
     }
   },
   {
@@ -1556,7 +1559,7 @@
     "curve": "secp256k1",
     "publicKeyType": "secp256k1Extended",
     "explorer": {
-      "url": "https://explorer.matic.network/",
+      "url": "https://polygonscan.com",
       "txPath": "/tx/",
       "accountPath": "/address/",
       "sampleTx": "0xe26ed1470d5bf99a53d687843e7acdf7e4ba6620af93b4d672e714de90476e8e",
@@ -1567,6 +1570,31 @@
       "client": "https://github.com/maticnetwork/contracts",
       "clientPublic": "https://rpc-mainnet.matic.network",
       "clientDocs": "https://github.com/ethereum/wiki/wiki/JSON-RPC"
+    }
+  },
+  {
+    "id": "thorchain",
+    "name": "THORChain",
+    "coinId": 931,
+    "symbol": "RUNE",
+    "decimals": 8,
+    "blockchain": "Cosmos",
+    "derivationPath": "m/44'/931'/0'/0/0",
+    "curve": "secp256k1",
+    "publicKeyType": "secp256k1",
+    "hrp": "thor",
+    "explorer": {
+      "url": "https://viewblock.io/thorchain",
+      "txPath": "/tx/",
+      "accountPath": "/address/",
+      "sampleTx": "ADF0899E58C177E2391F22D04E9C5E1C35BB0F75B42B363A0761687907FD9476",
+      "sampleAccount": "bnb1czhptncu9uhhlrlrk9q0rmy459gae2ua79mapn"
+    },
+    "info": {
+      "url": "https://thorchain.org",
+      "client": "https://gitlab.com/thorchain/thornode",
+      "clientPublic": "https://seed.thorchain.info",
+      "clientDocs": ""
     }
   }
 ]
